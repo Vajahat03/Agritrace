@@ -1,0 +1,290 @@
+{
+  "Ammapet(Uzhavar Sandhai )": {
+    "mae": 2037.7617,
+    "rmse": 2152.0864,
+    "r2": -0.5123,
+    "smape": 35.0445,
+    "directional_accuracy": 0.0,
+    "sample_count": 2
+  },
+  "Anaiyur(Uzhavar Sandhai )": {
+    "mae": 1549.9858,
+    "rmse": 1603.7116,
+    "r2": -0.3923,
+    "smape": 40.6515,
+    "directional_accuracy": 50.0,
+    "sample_count": 3
+  },
+  "Anna Nagar(Uzhavar Sandhai )": {
+    "mae": 945.0843,
+    "rmse": 1219.2173,
+    "r2": 0.5868,
+    "smape": 17.9552,
+    "directional_accuracy": 50.0,
+    "sample_count": 3
+  },
+  "Arcot(Uzhavar Sandhai )": {
+    "mae": 381.8979,
+    "rmse": 422.4141,
+    "r2": -30.7215,
+    "smape": 11.6678,
+    "directional_accuracy": 0.0,
+    "sample_count": 2
+  },
+  "Athur(Uzhavar Sandhai )": {
+    "mae": 952.6899,
+    "rmse": 1181.9989,
+    "r2": 0.3711,
+    "smape": 28.2464,
+    "directional_accuracy": 100.0,
+    "sample_count": 3
+  },
+  "Avallapalli(Uzhavar Sandhai )": {
+    "mae": 954.0773,
+    "rmse": 1159.0712,
+    "r2": -32.5862,
+    "smape": 30.7221,
+    "directional_accuracy": 0.0,
+    "sample_count": 2
+  },
+  "Chengam(Uzhavar Sandhai )": {
+    "mae": 803.1533,
+    "rmse": 803.3947,
+    "r2": 0.5869,
+    "smape": 19.7358,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Chokkikulam(Uzhavar Sandhai )": {
+    "mae": 521.4545,
+    "rmse": 829.508,
+    "r2": 0.536,
+    "smape": 13.2863,
+    "directional_accuracy": 66.67,
+    "sample_count": 4
+  },
+  "Denkanikottai(Uzhavar Sandhai )": {
+    "mae": 943.4908,
+    "rmse": 1151.6615,
+    "r2": -0.9489,
+    "smape": 27.0858,
+    "directional_accuracy": 0.0,
+    "sample_count": 3
+  },
+  "Devakottai (Uzhavar Sandhai )": {
+    "mae": 1277.288,
+    "rmse": 1578.7792,
+    "r2": 0.1861,
+    "smape": 21.8016,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Dharapuram(Uzhavar Sandhai )": {
+    "mae": 647.384,
+    "rmse": 860.8488,
+    "r2": -1.5505,
+    "smape": 13.9083,
+    "directional_accuracy": 100.0,
+    "sample_count": 3
+  },
+  "Edapadi (Uzhavar Sandhai )": {
+    "mae": 864.9407,
+    "rmse": 964.3482,
+    "r2": -1.3807,
+    "smape": 18.4643,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Gandhigramam(Uzhavar Sandhai)": {
+    "mae": 823.3033,
+    "rmse": 1033.9795,
+    "r2": 0.5214,
+    "smape": 12.8743,
+    "directional_accuracy": 50.0,
+    "sample_count": 3
+  },
+  "Gingee(Uzhavar Sandhai )": {
+    "mae": 844.035,
+    "rmse": 1103.3001,
+    "r2": 0.1183,
+    "smape": 30.6282,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Gobichettipalayam(Uzhavar Sandhai )": {
+    "mae": 865.3241,
+    "rmse": 980.9221,
+    "r2": -1.4633,
+    "smape": 28.2255,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Hasthampatti(Uzhavar Sandhai )": {
+    "mae": 778.2146,
+    "rmse": 926.5401,
+    "r2": 0.0741,
+    "smape": 16.2268,
+    "directional_accuracy": 100.0,
+    "sample_count": 3
+  },
+  "Kahithapattarai(Uzhavar Sandhai )": {
+    "mae": 169.8074,
+    "rmse": 170.4113,
+    "r2": 0.9484,
+    "smape": 4.3127,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Kallakurichi(Uzhavar Sandhai )": {
+    "mae": 1031.6184,
+    "rmse": 1278.3478,
+    "r2": -2.5916,
+    "smape": 30.2675,
+    "directional_accuracy": 50.0,
+    "sample_count": 3
+  },
+  "Kariyapatti(Uzhavar Sandhai )": {
+    "mae": 1201.7275,
+    "rmse": 1234.8112,
+    "r2": -0.4445,
+    "smape": 27.5113,
+    "directional_accuracy": 100.0,
+    "sample_count": 3
+  },
+  "Katpadi (Uzhavar Sandhai )": {
+    "mae": 587.1331,
+    "rmse": 636.4567,
+    "r2": 0.5949,
+    "smape": 12.5772,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Kumarapalayam(Uzhavar Sandhai )": {
+    "mae": 603.8171,
+    "rmse": 847.2078,
+    "r2": 0.7656,
+    "smape": 17.9635,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Musiri(Uzhavar Sandhai )": {
+    "mae": 600.8365,
+    "rmse": 660.458,
+    "r2": 0.8909,
+    "smape": 16.2057,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Myladi(Uzhavar Sandhai )": {
+    "mae": 2319.2753,
+    "rmse": 3214.298,
+    "r2": -11.7552,
+    "smape": 40.4247,
+    "directional_accuracy": 0.0,
+    "sample_count": 2
+  },
+  "Palacode(Uzhavar Sandhai )": {
+    "mae": 2320.4893,
+    "rmse": 2513.7823,
+    "r2": -10.234,
+    "smape": 65.6698,
+    "directional_accuracy": 0.0,
+    "sample_count": 2
+  },
+  "Palayamkottai(Uzhavar Sandhai )": {
+    "mae": 264.4652,
+    "rmse": 264.477,
+    "r2": 0.5026,
+    "smape": 7.3264,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Pallavaram(Uzhavar Sandhai )": {
+    "mae": 1040.6126,
+    "rmse": 1170.4977,
+    "r2": 0.3543,
+    "smape": 23.2141,
+    "directional_accuracy": 100.0,
+    "sample_count": 3
+  },
+  "Pallikonda(Uzhavar Sandhai)": {
+    "mae": 95.9077,
+    "rmse": 98.9882,
+    "r2": 0.9749,
+    "smape": 1.8579,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Pennagaram(Uzhavar Sandhai )": {
+    "mae": 2319.9521,
+    "rmse": 2520.7473,
+    "r2": -7.2993,
+    "smape": 69.4541,
+    "directional_accuracy": 0.0,
+    "sample_count": 2
+  },
+  "Perambalur(Uzhavar Sandhai )": {
+    "mae": 1276.1265,
+    "rmse": 1289.6491,
+    "r2": -72.9198,
+    "smape": 34.6877,
+    "directional_accuracy": 0.0,
+    "sample_count": 2
+  },
+  "Perampet(Uzhavar Sandhai)": {
+    "mae": 1946.2893,
+    "rmse": 2036.6743,
+    "r2": -0.8436,
+    "smape": 31.5627,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Ponnamaravathi(Uzhavar Sandhai)": {
+    "mae": 1020.4426,
+    "rmse": 1210.5828,
+    "r2": -46.8534,
+    "smape": 24.2173,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Singampunari(Uzhavar Sandhai )": {
+    "mae": 1196.8467,
+    "rmse": 1316.4221,
+    "r2": -42.3242,
+    "smape": 35.9302,
+    "directional_accuracy": 0.0,
+    "sample_count": 2
+  },
+  "Sivagangai (Uzhavar Sandhai )": {
+    "mae": 1146.8932,
+    "rmse": 1231.8386,
+    "r2": 0.3883,
+    "smape": 41.2058,
+    "directional_accuracy": 100.0,
+    "sample_count": 2
+  },
+  "Thalavadi(Uzhavar Sandhai )": {
+    "mae": 644.8582,
+    "rmse": 744.6818,
+    "r2": -8.9819,
+    "smape": 19.4774,
+    "directional_accuracy": 0.0,
+    "sample_count": 3
+  },
+  "Thathakapatti(Uzhavar Sandhai )": {
+    "mae": 1090.5467,
+    "rmse": 1595.8399,
+    "r2": 0.292,
+    "smape": 19.4853,
+    "directional_accuracy": 50.0,
+    "sample_count": 3
+  },
+  "Thuraiyur Apmc": {
+    "mae": 1112.8574,
+    "rmse": 1233.8765,
+    "r2": -9.8263,
+    "smape": 35.5927,
+    "directional_accuracy": 0.0,
+    "sample_count": 2
+  }
+}

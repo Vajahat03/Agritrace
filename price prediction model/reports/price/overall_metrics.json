@@ -1,0 +1,65 @@
+{
+  "Naive Persistence": {
+    "mae": 1276.6667,
+    "rmse": 1610.2047,
+    "r2": -0.0187,
+    "smape": 30.602,
+    "directional_accuracy": 37.31
+  },
+  "Moving Average (7d)": {
+    "mae": 916.7478,
+    "rmse": 1212.9067,
+    "r2": 0.422,
+    "smape": 22.4909,
+    "directional_accuracy": 37.31
+  },
+  "Linear Regression": {
+    "mae": 1081.8098,
+    "rmse": 1376.7531,
+    "r2": 0.2552,
+    "smape": 26.5317,
+    "directional_accuracy": 45.52
+  },
+  "Random Forest": {
+    "mae": 916.6117,
+    "rmse": 1226.111,
+    "r2": 0.4093,
+    "smape": 21.9437,
+    "directional_accuracy": 43.28
+  },
+  "XGBoost (Champion)": {
+    "mae": 930.7166,
+    "rmse": 1238.2608,
+    "r2": 0.3975,
+    "smape": 22.0398,
+    "directional_accuracy": 50.75
+  },
+  "PyTorch LSTM": {
+    "mae": 4239.5719,
+    "rmse": 4529.793,
+    "r2": -7.0623,
+    "smape": 198.2077,
+    "directional_accuracy": 48.51
+  },
+  "PyTorch TCN": {
+    "mae": 1409.6331,
+    "rmse": 1850.832,
+    "r2": -0.346,
+    "smape": 34.795,
+    "directional_accuracy": 60.45
+  },
+  "Tabular MLP": {
+    "mae": 4206.8969,
+    "rmse": 4499.123,
+    "r2": -6.9535,
+    "smape": 194.8064,
+    "directional_accuracy": 59.7
+  },
+  "Hybrid Ensemble": {
+    "mae": 1085.7843,
+    "rmse": 1475.0683,
+    "r2": 0.1451,
+    "smape": 25.8276,
+    "directional_accuracy": 55.22
+  }
+}

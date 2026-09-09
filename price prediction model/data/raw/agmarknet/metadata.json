@@ -1,0 +1,10 @@
+{
+  "source": "Government of India OGD / AGMARKNET",
+  "resource": "Current Daily Price of Various Commodities from Various Markets",
+  "resource_id": "9ef84268-d588-465a-a308-a864a43d0070",
+  "retrieved_at": "2026-09-06T10:51:21.986328",
+  "row_count": 1000,
+  "raw_file": "agmarknet_2026_09_06_105121.json",
+  "checksum": "d45f89fd17380df7249602ba08e29be790b7195fe9835afa047ff9ed0cdffbd3",
+  "fields_count": 10
+}

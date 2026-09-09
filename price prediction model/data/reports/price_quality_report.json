@@ -1,0 +1,15 @@
+{
+  "dataset_source": "Government of India OGD / AGMARKNET",
+  "resource_id": "9ef84268-d588-465a-a308-a864a43d0070",
+  "retrieval_timestamp": "2026-09-06T10:51:21.986328",
+  "checksum": "d45f89fd17380df7249602ba08e29be790b7195fe9835afa047ff9ed0cdffbd3",
+  "total_rows": 1000,
+  "valid_rows": 1000,
+  "invalid_rows": 0,
+  "duplicate_rows": 0,
+  "price_order_violations": 0,
+  "missing_date_rows": 0,
+  "outlier_rows": 6,
+  "date_min": "2026-09-06",
+  "date_max": "2026-09-06"
+}

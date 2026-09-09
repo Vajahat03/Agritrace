@@ -1,0 +1,207 @@
+{
+  "models": [
+    {
+      "model_id": "PRICE-ENSEMBLE-001",
+      "version": "1.0.0",
+      "model_type": "Hybrid Stacking Ensemble (XGBoost + LSTM + TCN + MLP)",
+      "target": "next_day_modal_price",
+      "training_source": "Government of India OGD / AGMARKNET",
+      "dataset_checksum": "d45f89fd17380df7249602ba08e29be790b7195fe9835afa047ff9ed0cdffbd3",
+      "registered_at": "2026-09-06T10:56:49.108868",
+      "validation_metrics": {
+        "mae": 1005.3921,
+        "rmse": 1362.1279,
+        "r2": 0.271,
+        "smape": 24.267,
+        "directional_accuracy": 42.54
+      },
+      "test_metrics": {
+        "mae": 1005.3921,
+        "rmse": 1362.1279,
+        "r2": 0.271,
+        "smape": 24.267,
+        "directional_accuracy": 42.54
+      },
+      "hyperparameters": {
+        "xgb": {
+          "n_estimators": 240,
+          "max_depth": 5,
+          "learning_rate": 0.016062882890455932,
+          "subsample": 0.603158796483093,
+          "colsample_bytree": 0.8314457461537458,
+          "min_child_weight": 4,
+          "reg_alpha": 0.01528033552159447,
+          "reg_lambda": 0.047276355162877995,
+          "random_state": 42,
+          "n_jobs": -1
+        },
+        "ensemble_weights": {
+          "xgboost": 0.378,
+          "lstm": 0.0846,
+          "tcn": 0.3861,
+          "mlp": 0.1513
+        }
+      },
+      "artifacts": {
+        "xgboost": "models/price/global/xgboost.json",
+        "lstm": "models/price/global/lstm.pt",
+        "tcn": "models/price/global/tcn.pt",
+        "mlp": "models/price/global/mlp.pt",
+        "ensemble": "models/price/global/ensemble.json",
+        "config": "models/price/global/model_config.json"
+      }
+    },
+    {
+      "model_id": "PRICE-XGB-CHAMPION-001",
+      "version": "1.0.0",
+      "model_type": "XGBoost Regressor (Optuna & GA Tuned)",
+      "target": "next_day_modal_price",
+      "training_source": "Government of India OGD / AGMARKNET",
+      "dataset_checksum": "d45f89fd17380df7249602ba08e29be790b7195fe9835afa047ff9ed0cdffbd3",
+      "registered_at": "2026-09-06T11:06:55.621865",
+      "validation_metrics": {
+        "mae": 924.0078,
+        "rmse": 1220.9154,
+        "r2": 0.4143,
+        "smape": 21.9376,
+        "directional_accuracy": 42.54
+      },
+      "test_metrics": {
+        "mae": 924.0078,
+        "rmse": 1220.9154,
+        "r2": 0.4143,
+        "smape": 21.9376,
+        "directional_accuracy": 42.54
+      },
+      "hyperparameters": {
+        "n_estimators": 240,
+        "max_depth": 3,
+        "learning_rate": 0.02717195989760585,
+        "subsample": 0.6028578886809971,
+        "colsample_bytree": 0.6130253871716576,
+        "min_child_weight": 1,
+        "reg_alpha": 2.4042435033141616,
+        "reg_lambda": 0.0011176335526087414,
+        "random_state": 42,
+        "n_jobs": -1
+      },
+      "artifacts": {
+        "xgboost_h1": "models/price/global/xgboost_h1.json",
+        "xgboost_h3": "models/price/global/xgboost_h3.json",
+        "xgboost_h7": "models/price/global/xgboost_h7.json",
+        "lstm": "models/price/global/lstm.pt",
+        "tcn": "models/price/global/tcn.pt",
+        "mlp": "models/price/global/mlp.pt",
+        "ensemble": "models/price/global/ensemble.json",
+        "config": "models/price/global/model_config.json"
+      }
+    },
+    {
+      "model_id": "PRICE-XGB-CHAMPION-001",
+      "version": "1.0.0",
+      "model_type": "XGBoost Regressor (Optuna & GA Tuned)",
+      "target": "next_day_modal_price",
+      "training_source": "Government of India AGMARKNET",
+      "dataset_checksum": null,
+      "registered_at": "2026-09-06T11:39:18.316808",
+      "validation_metrics": {
+        "mae": 928.474,
+        "rmse": 1222.7425,
+        "r2": 0.4125,
+        "smape": 21.9849,
+        "directional_accuracy": 44.78
+      },
+      "test_metrics": {
+        "mae": 928.474,
+        "rmse": 1222.7425,
+        "r2": 0.4125,
+        "smape": 21.9849,
+        "directional_accuracy": 44.78
+      },
+      "hyperparameters": {
+        "n_estimators": 180,
+        "max_depth": 4,
+        "learning_rate": 0.03286367650614932,
+        "subsample": 0.7120871627043722,
+        "colsample_bytree": 0.8824045319525164,
+        "min_child_weight": 2,
+        "reg_alpha": 0.07905893717672545,
+        "reg_lambda": 0.0011764023754245003,
+        "random_state": 42,
+        "n_jobs": -1
+      },
+      "artifacts": {
+        "xgboost_h1": "models/price/global/xgboost_h1.json",
+        "xgboost_h3": "models/price/global/xgboost_h3.json",
+        "xgboost_h7": "models/price/global/xgboost_h7.json",
+        "lstm": "models/price/global/lstm.pt",
+        "tcn": "models/price/global/tcn.pt",
+        "mlp": "models/price/global/mlp.pt",
+        "ensemble": "models/price/global/ensemble.json",
+        "config": "models/price/global/model_config.json"
+      }
+    },
+    {
+      "model_id": "PRICE-XGB-CHAMPION-001",
+      "version": "1.0.0",
+      "model_type": "XGBoost Regressor (Optuna & GA Tuned)",
+      "target": "next_day_modal_price",
+      "training_source": "Government of India Open Government Data Platform (data.gov.in)",
+      "dataset_checksum": "d45f89fd17380df7249602ba08e29be790b7195fe9835afa047ff9ed0cdffbd3",
+      "dataset_metadata": {
+        "agmarknet_mandi_data": {
+          "source": "Government of India Open Government Data Platform (data.gov.in)",
+          "resource_id": "9ef84268-d588-465a-a308-a864a43d0070",
+          "checksum_sha256": "d45f89fd17380df7249602ba08e29be790b7195fe9835afa047ff9ed0cdffbd3",
+          "raw_records": 1000
+        },
+        "meteorological_weather_data": {
+          "source": "Open-Meteo ERA5 Reanalysis & IMD Meteorological Records",
+          "checksum_sha256": "8269b3a8482145e0db5e89c5e80a7b85900941af236cc5547de19543724e5c94",
+          "raw_records": 1836,
+          "locations_tracked": 51
+        },
+        "pipeline_timestamp": "2026-09-06T11:43:46.078402"
+      },
+      "registered_at": "2026-09-06T11:44:23.276094",
+      "validation_metrics": {
+        "mae": 930.7166,
+        "rmse": 1238.2608,
+        "r2": 0.3975,
+        "smape": 22.0398,
+        "directional_accuracy": 50.75
+      },
+      "test_metrics": {
+        "mae": 930.7166,
+        "rmse": 1238.2608,
+        "r2": 0.3975,
+        "smape": 22.0398,
+        "directional_accuracy": 50.75
+      },
+      "hyperparameters": {
+        "n_estimators": 140,
+        "max_depth": 6,
+        "learning_rate": 0.023332762872628598,
+        "subsample": 0.606124679839494,
+        "colsample_bytree": 0.8468845267643803,
+        "min_child_weight": 2,
+        "reg_alpha": 4.483809360067651,
+        "reg_lambda": 0.6192778197492288,
+        "random_state": 42,
+        "n_jobs": -1
+      },
+      "artifacts": {
+        "xgboost_h1": "models/price/global/xgboost_h1.json",
+        "xgboost_h3": "models/price/global/xgboost_h3.json",
+        "xgboost_h7": "models/price/global/xgboost_h7.json",
+        "lstm": "models/price/global/lstm.pt",
+        "tcn": "models/price/global/tcn.pt",
+        "mlp": "models/price/global/mlp.pt",
+        "ensemble": "models/price/global/ensemble.json",
+        "config": "models/price/global/model_config.json"
+      }
+    }
+  ],
+  "champion": "PRICE-XGB-CHAMPION-001",
+  "last_updated": "2026-09-06T11:44:23.276094"
+}

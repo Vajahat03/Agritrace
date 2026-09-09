@@ -1,0 +1,9 @@
+{
+  "source": "Open-Meteo ERA5 Historical Reanalysis / IMD Reanalysis",
+  "retrieved_at": "2026-09-06T11:38:33.459146",
+  "locations_count": 51,
+  "records_count": 1836,
+  "start_date": "2026-08-02",
+  "end_date": "2026-09-06",
+  "checksum": "8269b3a8482145e0db5e89c5e80a7b85900941af236cc5547de19543724e5c94"
+}

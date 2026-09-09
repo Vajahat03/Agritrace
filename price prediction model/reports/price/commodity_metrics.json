@@ -1,0 +1,98 @@
+{
+  "Brinjal": {
+    "mae": 857.3263,
+    "rmse": 991.0944,
+    "r2": 0.2388,
+    "smape": 20.1085,
+    "directional_accuracy": 62.5,
+    "sample_count": 9
+  },
+  "Cabbage": {
+    "mae": 586.6616,
+    "rmse": 774.3565,
+    "r2": -0.1598,
+    "smape": 19.3005,
+    "directional_accuracy": 53.85,
+    "sample_count": 14
+  },
+  "Capsicum": {
+    "mae": 1401.4474,
+    "rmse": 1595.2863,
+    "r2": -0.9796,
+    "smape": 21.8366,
+    "directional_accuracy": 0.0,
+    "sample_count": 9
+  },
+  "Carrot": {
+    "mae": 1046.5136,
+    "rmse": 1302.065,
+    "r2": -0.2677,
+    "smape": 17.1747,
+    "directional_accuracy": 38.1,
+    "sample_count": 22
+  },
+  "Cauliflower": {
+    "mae": 705.9588,
+    "rmse": 992.4931,
+    "r2": -0.2483,
+    "smape": 19.5341,
+    "directional_accuracy": 57.14,
+    "sample_count": 22
+  },
+  "Chikoos(Sapota)": {
+    "mae": 1310.6166,
+    "rmse": 1316.7229,
+    "r2": -2.2635,
+    "smape": 28.8082,
+    "directional_accuracy": 33.33,
+    "sample_count": 4
+  },
+  "Chow Chow": {
+    "mae": 789.0731,
+    "rmse": 935.0533,
+    "r2": -0.4681,
+    "smape": 22.0321,
+    "directional_accuracy": 41.67,
+    "sample_count": 13
+  },
+  "Cluster Beans": {
+    "mae": 704.198,
+    "rmse": 935.8101,
+    "r2": -0.3091,
+    "smape": 18.7073,
+    "directional_accuracy": 55.56,
+    "sample_count": 19
+  },
+  "Cowpea(Veg)": {
+    "mae": 1450.8605,
+    "rmse": 1885.4132,
+    "r2": -1.0134,
+    "smape": 36.9845,
+    "directional_accuracy": 0.0,
+    "sample_count": 5
+  },
+  "Cucumbar(Kheera)": {
+    "mae": 2332.4956,
+    "rmse": 2631.8921,
+    "r2": -0.3984,
+    "smape": 60.7933,
+    "directional_accuracy": 40.0,
+    "sample_count": 6
+  },
+  "Custard Apple(Sharifa)": {
+    "mae": 997.1781,
+    "rmse": 1583.733,
+    "r2": -0.3578,
+    "smape": 16.7236,
+    "directional_accuracy": 100.0,
+    "sample_count": 3
+  },
+  "Drumstick": {
+    "mae": 648.1346,
+    "rmse": 867.881,
+    "r2": -0.111,
+    "smape": 19.9129,
+    "directional_accuracy": 57.14,
+    "sample_count": 8
+  }
+}

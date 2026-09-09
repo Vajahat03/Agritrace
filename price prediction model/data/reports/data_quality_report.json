@@ -1,0 +1,88 @@
+{
+  "provenance": {
+    "source": "Government of India OGD / AGMARKNET",
+    "resource": "Current Daily Price of Various Commodities from Various Markets",
+    "resource_id": "9ef84268-d588-465a-a308-a864a43d0070",
+    "retrieved_at": "2026-09-06T10:51:21.986328",
+    "row_count": 1000,
+    "raw_file": "agmarknet_2026_09_06_105121.json",
+    "checksum": "d45f89fd17380df7249602ba08e29be790b7195fe9835afa047ff9ed0cdffbd3",
+    "fields_count": 10
+  },
+  "metrics": {
+    "total_records": 1000,
+    "valid_training_records": 1000,
+    "invalid_or_flagged_records": 0,
+    "exact_duplicates": 0,
+    "price_order_violations": 0,
+    "missing_date_records": 0,
+    "statistical_outliers_flagged": 6,
+    "date_range": {
+      "min_date": "2026-09-06",
+      "max_date": "2026-09-06"
+    },
+    "unique_commodities_count": 79,
+    "unique_markets_count": 149,
+    "unique_states_count": 11,
+    "price_units_standardized": "Rs/Quintal -> Rs/kg (canonical normalized)"
+  },
+  "breakdown": {
+    "top_commodities": {
+      "Beans": 30,
+      "Coriander(Leaves)": 29,
+      "Tomato": 28,
+      "Green Chilli": 28,
+      "Onion Green": 27,
+      "Bottle Gourd": 27,
+      "Drumstick": 26,
+      "Snakeguard": 26,
+      "Bitter Gourd": 25,
+      "Raddish": 25,
+      "Bhindi(Ladies Finger)": 24,
+      "Brinjal": 24,
+      "Ashgourd": 24,
+      "Banana": 24,
+      "Cauliflower": 24,
+      "Onion": 24,
+      "Mint(Pudina)": 23,
+      "Green Avare(W)": 23,
+      "Ridgeguard(Tori)": 23,
+      "Carrot": 23
+    },
+    "top_markets": {
+      "Chokkikulam(Uzhavar Sandhai )": 21,
+      "Kallakurichi(Uzhavar Sandhai )": 15,
+      "Hosur(Uzhavar Sandhai )": 15,
+      "Palanganatham(Uzhavar Sandhai )": 14,
+      "Nagapattinam(Uzhavar Sandhai )": 14,
+      "Pudukottai(Uzhavar Sandhai )": 14,
+      "Thathakapatti(Uzhavar Sandhai )": 14,
+      "Anna Nagar(Uzhavar Sandhai )": 13,
+      "Denkanikottai(Uzhavar Sandhai )": 13,
+      "Gandhigramam(Uzhavar Sandhai)": 12,
+      "Anaiyur(Uzhavar Sandhai )": 12,
+      "Ramanathapuram(Uzhavar Sandhai )": 12,
+      "Musiri(Uzhavar Sandhai )": 12,
+      "Palayamkottai(Uzhavar Sandhai )": 12,
+      "Hasthampatti(Uzhavar Sandhai )": 12,
+      "Arcot(Uzhavar Sandhai )": 11,
+      "Pallavaram(Uzhavar Sandhai )": 11,
+      "Polur(Uzhavar Sandhai )": 11,
+      "Gudiyatham(Uzhavar Sandhai )": 11,
+      "Padappai(Uzhavar Sandhai )": 11
+    },
+    "states": {
+      "Tamil Nadu": 959,
+      "Keralam": 13,
+      "Andhra Pradesh": 8,
+      "West Bengal": 4,
+      "Telangana": 4,
+      "Odisha": 3,
+      "Gujarat": 2,
+      "Haryana": 2,
+      "Maharashtra": 2,
+      "Tripura": 2,
+      "Uttarakhand": 1
+    }
+  }
+}

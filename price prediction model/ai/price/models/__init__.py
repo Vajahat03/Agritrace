@@ -1,0 +1,3 @@
+"""
+AgriTrace Models Subpackage
+"""
