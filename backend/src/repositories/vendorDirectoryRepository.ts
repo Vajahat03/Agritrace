@@ -81,9 +81,10 @@ export class VendorDirectoryRepository {
         .order('updated_at', { ascending: false }),
       supabaseAdmin
         .from('products')
-        .select('id, name, crop_type, variety, price_per_unit, unit, available_quantity, quality_grade, location')
+        .select('id, name, crop_type, variety, price_per_unit, unit, available_quantity, quality_grade, location, listing:marketplace_listings!marketplace_listings_product_id_fkey(listing_status)')
         .eq('vendor_id', vendorId)
         .gt('available_quantity', 0)
+        .eq('listing.listing_status', 'ACTIVE')
         .order('updated_at', { ascending: false }),
     ]);
 
