@@ -44,6 +44,15 @@ env/
 *.weights
 *.onnx
 
+# Datasets and archives
+agritrace - agents/data/
+datasets/*
+!datasets/README.md
+data/
+*.zip
+*.rar
+*.7z
+
 # IDE & OS
 .DS_Store
 Thumbs.db
