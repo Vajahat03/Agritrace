@@ -13,17 +13,20 @@ import {
   User,
   LogOut,
   ChevronDown,
-  ShoppingBag,
-  Store,
-  QrCode,
+  Menu,
   ShieldCheck,
 } from 'lucide-react';
 
-export function Navbar() {
+interface NavbarProps {
+  onToggleMobileMenu?: () => void;
+}
+
+export function Navbar({ onToggleMobileMenu }: NavbarProps) {
   const { user, logout } = useAuth();
   const { language, setLanguage, t } = useLanguage();
   const pathname = usePathname();
   const [langDropdown, setLangDropdown] = useState(false);
+  const [userDropdown, setUserDropdown] = useState(false);
 
   const languages: { code: Language; label: string }[] = [
     { code: 'en', label: 'English' },
@@ -33,73 +36,57 @@ export function Navbar() {
     { code: 'hinglish', label: 'Hinglish' },
   ];
 
+  const getRoleBadge = (role?: string) => {
+    switch (role) {
+      case 'FARMER':
+        return { label: 'Farmer Portal', color: 'bg-emerald-50 text-emerald-800 border-emerald-200' };
+      case 'VENDOR':
+        return { label: 'Vendor Portal', color: 'bg-amber-50 text-amber-800 border-amber-200' };
+      case 'CUSTOMER':
+        return { label: 'Customer Marketplace', color: 'bg-sky-50 text-sky-800 border-sky-200' };
+      default:
+        return { label: 'AgriTrace', color: 'bg-slate-100 text-slate-800 border-slate-200' };
+    }
+  };
+
+  const roleInfo = getRoleBadge(user?.role);
+
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md shadow-xs">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Brand Logo */}
+        {/* Left Side: Hamburger (mobile) + Brand Logo */}
         <div className="flex items-center gap-3">
+          {onToggleMobileMenu && (
+            <button
+              onClick={onToggleMobileMenu}
+              className="p-2 rounded-lg text-slate-600 hover:bg-slate-100 md:hidden transition-colors"
+              aria-label="Open portal navigation"
+            >
+              <Menu className="h-5 w-5" />
+            </button>
+          )}
+
           <Link href="/" className="flex items-center gap-2.5 group">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 shadow-sm group-hover:scale-105 transition-transform">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 shadow-xs group-hover:bg-emerald-700 transition-colors">
               <Sprout className="h-6 w-6 text-white" />
             </div>
             <div>
               <span className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-1.5">
                 Agri<span className="text-emerald-700">Trace</span>
-                <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">
-                  AI Fresh
-                </span>
               </span>
             </div>
           </Link>
-        </div>
 
-        {/* Center Portal Navigation */}
-        <nav className="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-xl border border-slate-200">
-          <Link
-            href="/farmer/dashboard"
-            className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-              pathname.startsWith('/farmer')
-                ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
-                : 'text-slate-600 hover:text-emerald-800 hover:bg-white'
-            }`}
-          >
-            <Sprout className="h-4 w-4 text-emerald-400" />
-            Farmer
-          </Link>
-          <Link
-            href="/vendor/dashboard"
-            className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-              pathname.startsWith('/vendor')
-                ? 'bg-amber-100 text-amber-800 border border-amber-200'
-                : 'text-slate-600 hover:text-amber-800 hover:bg-white'
-            }`}
-          >
-            <Store className="h-4 w-4 text-amber-400" />
-            Vendor
-          </Link>
-          <Link
-            href="/customer/dashboard"
-            className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-              pathname.startsWith('/customer')
-                ? 'bg-sky-100 text-sky-800 border border-sky-200'
-                : 'text-slate-600 hover:text-sky-800 hover:bg-white'
-            }`}
-          >
-            <ShoppingBag className="h-4 w-4 text-sky-400" />
-            Customer
-          </Link>
-          <Link
-            href="/trace/batch/TOM-2026-0001"
-            className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
-              pathname.startsWith('/trace')
-                ? 'bg-purple-100 text-purple-800 border border-purple-200'
-                : 'text-slate-600 hover:text-purple-800 hover:bg-white'
-            }`}
-          >
-            <QrCode className="h-4 w-4 text-purple-400" />
-            Traceability
-          </Link>
-        </nav>
+          {/* Active Portal Badge */}
+          {user && (
+            <span
+              className={`hidden sm:inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full border ${roleInfo.color} ml-2`}
+            >
+              <ShieldCheck className="h-3.5 w-3.5" />
+              {roleInfo.label}
+            </span>
+          )}
+        </div>
 
         {/* Right Action Bar */}
         <div className="flex items-center gap-2.5">
@@ -107,15 +94,15 @@ export function Navbar() {
           <div className="relative">
             <button
               onClick={() => setLangDropdown(!langDropdown)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-medium text-slate-700 hover:border-emerald-400 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-50 border border-slate-200 text-xs font-medium text-slate-700 hover:bg-slate-100 transition-all"
             >
-              <Globe className="h-3.5 w-3.5 text-emerald-400" />
+              <Globe className="h-3.5 w-3.5 text-emerald-600" />
               <span>{languages.find((l) => l.code === language)?.label.split(' ')[0]}</span>
               <ChevronDown className="h-3 w-3 opacity-70" />
             </button>
 
             {langDropdown && (
-              <div className="absolute right-0 mt-2 w-48 rounded-xl bg-white border border-slate-200 shadow-xl p-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+              <div className="absolute right-0 mt-2 w-48 rounded-xl bg-white border border-slate-200 shadow-lg p-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                 {languages.map((l) => (
                   <button
                     key={l.code}
@@ -139,14 +126,23 @@ export function Navbar() {
           {/* User Profile / Logout */}
           {user ? (
             <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
-              <div className="hidden lg:block text-right">
+              <Link
+                href={
+                  user.role === 'FARMER'
+                    ? '/farmer/profile'
+                    : user.role === 'VENDOR'
+                    ? '/vendor/profile'
+                    : '/customer/profile'
+                }
+                className="hidden lg:flex flex-col text-right hover:opacity-80 transition-opacity"
+              >
                 <p className="text-xs font-semibold text-slate-900 leading-tight">{user.full_name}</p>
-                <p className="text-[10px] text-emerald-700 font-medium">{user.role}</p>
-              </div>
+                <p className="text-[10px] text-emerald-700 font-medium capitalize">{user.role.toLowerCase()}</p>
+              </Link>
               <button
                 onClick={logout}
                 title="Log Out"
-                className="p-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-red-600 hover:border-red-200 transition-colors"
+                className="p-2 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 hover:text-red-600 hover:bg-red-50 hover:border-red-200 transition-colors"
               >
                 <LogOut className="h-4 w-4" />
               </button>

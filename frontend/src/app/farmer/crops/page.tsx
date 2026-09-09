@@ -7,7 +7,7 @@ import { FertilizerModal } from '../../../components/FertilizerModal';
 import { apiClient } from '../../../lib/apiClient';
 import { Crop, CropStatus } from '../../../types';
 import { useLanguage } from '../../../context/LanguageContext';
-import { Sprout, PlusCircle, Filter, X } from 'lucide-react';
+import { Sprout, PlusCircle, Filter, X, Upload, CheckCircle2, AlertCircle, Loader2 } from 'lucide-react';
 
 export default function FarmerCropsPage() {
   const { t, translateCommodity } = useLanguage();
@@ -16,6 +16,7 @@ export default function FarmerCropsPage() {
   const [loading, setLoading] = useState(true);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
   const [selectedCropForFertilizer, setSelectedCropForFertilizer] = useState<Crop | null>(null);
+  const [feedback, setFeedback] = useState<{ type: 'success' | 'error'; message: string } | null>(null);
 
   // New Crop Form state
   const [newCrop, setNewCrop] = useState({
@@ -63,85 +64,85 @@ export default function FarmerCropsPage() {
         setCrops([]);
       }
     } catch {
-      // Demo crops fallback if backend is unreachable
+      // Default initial multi-crop data if backend is in fallback mode
       setCrops([
         {
           id: 'crop-001',
-            farmer_id: 'farmer-1',
-            farm_id: 'farm-1',
-            plot_id: 'plot-1',
-            crop_type: 'Tomato',
-            variety: 'Roma Supreme',
-            area: 2.5,
-            area_unit: 'acre',
-            plantingDate: '2026-08-01',
-            expectedHarvestDate: '2026-11-15',
-            status: 'GROWING',
-            planting_date: '2026-08-01',
-            expected_harvest_date: '2026-11-15',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-            farm: { name: 'Green Valley Farm', location_name: 'Nashik, Maharashtra' },
-            plot: { name: 'Plot A (North Section)', area: 2.5 },
-          },
-          {
-            id: 'crop-002',
-            farmer_id: 'farmer-1',
-            farm_id: 'farm-1',
-            plot_id: 'plot-2',
-            crop_type: 'Onion',
-            variety: 'Nashik Red',
-            area: 3.0,
-            area_unit: 'acre',
-            plantingDate: '2026-07-20',
-            expectedHarvestDate: '2026-10-30',
-            status: 'GROWING',
-            planting_date: '2026-07-20',
-            expected_harvest_date: '2026-10-30',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-            farm: { name: 'Green Valley Farm', location_name: 'Nashik, Maharashtra' },
-            plot: { name: 'Plot B (River Basin)', area: 3.0 },
-          },
-          {
-            id: 'crop-003',
-            farmer_id: 'farmer-1',
-            farm_id: 'farm-1',
-            plot_id: 'plot-3',
-            crop_type: 'Potato',
-            variety: 'Kufri Jyoti',
-            area: 1.8,
-            area_unit: 'acre',
-            plantingDate: '2026-08-10',
-            expectedHarvestDate: '2026-12-05',
-            status: 'GROWING',
-            planting_date: '2026-08-10',
-            expected_harvest_date: '2026-12-05',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-            farm: { name: 'Green Valley Farm', location_name: 'Nashik, Maharashtra' },
-            plot: { name: 'Plot C', area: 1.8 },
-          },
-          {
-            id: 'crop-004',
-            farmer_id: 'farmer-1',
-            farm_id: 'farm-1',
-            plot_id: 'plot-4',
-            crop_type: 'Chili',
-            variety: 'Guntur Sannam',
-            area: 1.2,
-            area_unit: 'acre',
-            plantingDate: '2026-08-15',
-            expectedHarvestDate: '2026-11-20',
-            status: 'GROWING',
-            planting_date: '2026-08-15',
-            expected_harvest_date: '2026-11-20',
-            created_at: new Date().toISOString(),
-            updated_at: new Date().toISOString(),
-            farm: { name: 'Green Valley Farm', location_name: 'Nashik, Maharashtra' },
-            plot: { name: 'Plot D', area: 1.2 },
-          },
-        ]);
+          farmer_id: 'farmer-1',
+          farm_id: 'farm-1',
+          plot_id: 'plot-1',
+          crop_type: 'Tomato',
+          variety: 'Roma Supreme',
+          area: 2.5,
+          area_unit: 'acre',
+          plantingDate: '2026-08-01',
+          expectedHarvestDate: '2026-11-15',
+          status: 'GROWING',
+          planting_date: '2026-08-01',
+          expected_harvest_date: '2026-11-15',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          farm: { name: 'Green Valley Farm', location_name: 'Nashik, Maharashtra' },
+          plot: { name: 'Plot A (North Section)', area: 2.5 },
+        },
+        {
+          id: 'crop-002',
+          farmer_id: 'farmer-1',
+          farm_id: 'farm-1',
+          plot_id: 'plot-2',
+          crop_type: 'Onion',
+          variety: 'Nashik Red',
+          area: 3.0,
+          area_unit: 'acre',
+          plantingDate: '2026-07-20',
+          expectedHarvestDate: '2026-10-30',
+          status: 'GROWING',
+          planting_date: '2026-07-20',
+          expected_harvest_date: '2026-10-30',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          farm: { name: 'Green Valley Farm', location_name: 'Nashik, Maharashtra' },
+          plot: { name: 'Plot B (River Basin)', area: 3.0 },
+        },
+        {
+          id: 'crop-003',
+          farmer_id: 'farmer-1',
+          farm_id: 'farm-1',
+          plot_id: 'plot-3',
+          crop_type: 'Potato',
+          variety: 'Kufri Jyoti',
+          area: 1.8,
+          area_unit: 'acre',
+          plantingDate: '2026-08-10',
+          expectedHarvestDate: '2026-12-05',
+          status: 'GROWING',
+          planting_date: '2026-08-10',
+          expected_harvest_date: '2026-12-05',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          farm: { name: 'Green Valley Farm', location_name: 'Nashik, Maharashtra' },
+          plot: { name: 'Plot C', area: 1.8 },
+        },
+        {
+          id: 'crop-004',
+          farmer_id: 'farmer-1',
+          farm_id: 'farm-1',
+          plot_id: 'plot-4',
+          crop_type: 'Chili',
+          variety: 'Guntur Sannam',
+          area: 1.2,
+          area_unit: 'acre',
+          plantingDate: '2026-08-15',
+          expectedHarvestDate: '2026-11-20',
+          status: 'READY_FOR_HARVEST',
+          planting_date: '2026-08-15',
+          expected_harvest_date: '2026-11-20',
+          created_at: new Date().toISOString(),
+          updated_at: new Date().toISOString(),
+          farm: { name: 'Green Valley Farm', location_name: 'Nashik, Maharashtra' },
+          plot: { name: 'Plot D', area: 1.2 },
+        },
+      ]);
     } finally {
       setLoading(false);
     }
@@ -156,6 +157,7 @@ export default function FarmerCropsPage() {
         area: Number(newCrop.area),
       });
       setIsAddModalOpen(false);
+      setFeedback({ type: 'success', message: 'New crop added to your farm holdings!' });
       setNewCrop({
         cropType: 'Tomato',
         variety: '',
@@ -169,7 +171,7 @@ export default function FarmerCropsPage() {
       });
       await loadCrops();
     } catch (err: any) {
-      alert('Error saving crop: ' + (err.message || 'Please check your connection'));
+      setFeedback({ type: 'error', message: err.message || 'Error saving crop.' });
     }
   };
 
@@ -177,9 +179,10 @@ export default function FarmerCropsPage() {
     if (!selectedCropForFertilizer) return;
     try {
       await apiClient.post(`/farmer/crops/${selectedCropForFertilizer.id}/fertilizers`, formData);
-      alert('Fertilizer application recorded as a new historical log!');
+      setFeedback({ type: 'success', message: 'Fertilizer application recorded successfully in history!' });
+      setSelectedCropForFertilizer(null);
     } catch (err: any) {
-      alert('Recorded: ' + err.message);
+      setFeedback({ type: 'error', message: err.message || 'Failed to record fertilizer.' });
     }
   };
 
@@ -187,27 +190,54 @@ export default function FarmerCropsPage() {
     <DashboardLayout
       portal="farmer"
       title="My Crops (Multi-Crop Management)"
-      subtitle="Track 2, 3, or multiple simultaneous crops. Each crop has a dedicated detail page with independent fertilizer and harvest records."
+      subtitle="Manage 2, 3, 4 or more simultaneous crops. Each crop maintains independent fertilizer history and harvest records."
       actionButton={
         <button
           onClick={() => setIsAddModalOpen(true)}
-          className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-[#081C15] font-bold text-xs shadow-glow hover:bg-emerald-400 transition-all"
+          className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors"
         >
           <PlusCircle className="h-4 w-4" />
           <span>Plant New Crop</span>
         </button>
       }
     >
+      {/* Feedback Alert */}
+      {feedback && (
+        <div
+          className={`flex items-center justify-between p-4 rounded-xl text-xs font-semibold border ${
+            feedback.type === 'success'
+              ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
+              : 'bg-red-50 text-red-800 border-red-200'
+          }`}
+        >
+          <div className="flex items-center gap-2">
+            {feedback.type === 'success' ? (
+              <CheckCircle2 className="h-4 w-4 text-emerald-600" />
+            ) : (
+              <AlertCircle className="h-4 w-4 text-red-600" />
+            )}
+            <span>{feedback.message}</span>
+          </div>
+          <button onClick={() => setFeedback(null)} className="text-slate-400 hover:text-slate-600 font-bold">
+            ✕
+          </button>
+        </div>
+      )}
+
       {/* Filter Bar */}
-      <div className="flex items-center gap-2 overflow-x-auto pb-2">
+      <div className="flex items-center gap-2 overflow-x-auto pb-1">
+        <span className="text-xs font-bold text-slate-500 mr-1 flex items-center gap-1">
+          <Filter className="h-3.5 w-3.5" />
+          Status:
+        </span>
         {['ALL', 'GROWING', 'READY_FOR_HARVEST', 'HARVESTED', 'PLANNING'].map((status) => (
           <button
             key={status}
             onClick={() => setStatusFilter(status)}
-            className={`px-3.5 py-1.5 rounded-xl text-xs font-semibold whitespace-nowrap transition-colors ${
+            className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition-colors border ${
               statusFilter === status
-                ? 'bg-emerald-500 text-[#081C15] shadow-glow'
-                : 'bg-emerald-950/40 text-emerald-300 border border-emerald-800/50 hover:bg-emerald-900/40'
+                ? 'bg-emerald-600 text-white border-emerald-600 shadow-2xs'
+                : 'bg-white text-slate-700 border-slate-200 hover:bg-slate-50'
             }`}
           >
             {status.replace(/_/g, ' ')}
@@ -217,19 +247,22 @@ export default function FarmerCropsPage() {
 
       {/* Multi-Crop Cards Grid */}
       {loading ? (
-        <div className="text-center py-16 text-emerald-400">Loading crops from database...</div>
+        <div className="py-16 flex flex-col items-center justify-center gap-3">
+          <Loader2 className="h-8 w-8 animate-spin text-emerald-600" />
+          <span className="text-xs text-slate-500 font-medium">Loading your standing crops...</span>
+        </div>
       ) : crops.length === 0 ? (
-        <div className="rounded-3xl glass-card p-12 text-center border border-emerald-800/40 space-y-4">
-          <div className="w-16 h-16 rounded-3xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/20">
+        <div className="rounded-2xl bg-white p-12 text-center border border-slate-200 shadow-xs space-y-4">
+          <div className="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto border border-emerald-200">
             <Sprout className="h-8 w-8" />
           </div>
-          <h3 className="text-lg font-bold text-white">No Crops Found</h3>
-          <p className="text-xs text-emerald-400/70 max-w-md mx-auto">
+          <h3 className="text-lg font-bold text-slate-900">No Crops Found</h3>
+          <p className="text-xs text-slate-500 max-w-md mx-auto">
             You don&apos;t have any crops in this filter. Click &quot;Plant New Crop&quot; to add a new crop to your farm.
           </p>
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-500 text-[#081C15] font-bold text-xs shadow-glow hover:bg-emerald-400 transition-all"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors"
           >
             <PlusCircle className="h-4 w-4" />
             <span>Plant Your First Crop</span>
@@ -249,14 +282,19 @@ export default function FarmerCropsPage() {
 
       {/* Plant New Crop Modal */}
       {isAddModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 overflow-y-auto">
-          <div className="w-full max-w-lg rounded-2xl glass-card border border-emerald-500/30 p-6 space-y-5 my-8">
-            <div className="flex items-center justify-between border-b border-emerald-800/50 pb-3">
-              <div className="flex items-center gap-2 text-emerald-300 font-bold text-lg">
-                <Sprout className="h-5 w-5 text-emerald-400" />
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 overflow-y-auto">
+          <div className="w-full max-w-lg rounded-2xl bg-white border border-slate-200 p-6 space-y-5 my-8 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+              <div className="flex items-center gap-2.5 text-slate-900 font-bold text-lg">
+                <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
+                  <Sprout className="h-5 w-5" />
+                </div>
                 <h3>Plant New Crop</h3>
               </div>
-              <button onClick={() => setIsAddModalOpen(false)} className="text-emerald-400/60 hover:text-white">
+              <button
+                onClick={() => setIsAddModalOpen(false)}
+                className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100"
+              >
                 <X className="h-5 w-5" />
               </button>
             </div>
@@ -264,11 +302,11 @@ export default function FarmerCropsPage() {
             <form onSubmit={handleCreateCrop} className="space-y-4 text-xs">
               {farms.length > 0 && (
                 <div>
-                  <label className="block text-emerald-300 font-medium mb-1">Select Farm *</label>
+                  <label className="block text-slate-700 font-bold mb-1">Select Farm *</label>
                   <select
                     value={selectedFarmId}
                     onChange={(e) => setSelectedFarmId(e.target.value)}
-                    className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:outline-none"
                   >
                     {farms.map((f) => (
                       <option key={f.id} value={f.id}>
@@ -281,11 +319,11 @@ export default function FarmerCropsPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-emerald-300 font-medium mb-1">Crop Type *</label>
+                  <label className="block text-slate-700 font-bold mb-1">Crop Type *</label>
                   <select
                     value={newCrop.cropType}
                     onChange={(e) => setNewCrop({ ...newCrop, cropType: e.target.value })}
-                    className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:outline-none"
                   >
                     <option value="Tomato">Tomato (टमाटर)</option>
                     <option value="Onion">Onion (प्याज)</option>
@@ -293,25 +331,26 @@ export default function FarmerCropsPage() {
                     <option value="Chili">Chili (मिर्च)</option>
                     <option value="Mango">Mango (आम)</option>
                     <option value="Banana">Banana (केला)</option>
+                    <option value="Grapes">Grapes (अंगूर)</option>
                     <option value="Spinach">Spinach (पालक)</option>
                   </select>
                 </div>
                 <div>
-                  <label className="block text-emerald-300 font-medium mb-1">Variety *</label>
+                  <label className="block text-slate-700 font-bold mb-1">Variety *</label>
                   <input
                     type="text"
                     required
                     placeholder="e.g. Roma / Nashik Red / Hybrid"
                     value={newCrop.variety}
                     onChange={(e) => setNewCrop({ ...newCrop, variety: e.target.value })}
-                    className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-emerald-300 font-medium mb-1">Planted Area *</label>
+                  <label className="block text-slate-700 font-bold mb-1">Planted Area *</label>
                   <input
                     type="number"
                     step="0.1"
@@ -319,15 +358,15 @@ export default function FarmerCropsPage() {
                     required
                     value={newCrop.area}
                     onChange={(e) => setNewCrop({ ...newCrop, area: Number(e.target.value) })}
-                    className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-emerald-300 font-medium mb-1">Area Unit</label>
+                  <label className="block text-slate-700 font-bold mb-1">Area Unit</label>
                   <select
                     value={newCrop.areaUnit}
                     onChange={(e) => setNewCrop({ ...newCrop, areaUnit: e.target.value })}
-                    className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:outline-none"
                   >
                     <option value="acre">Acre</option>
                     <option value="hectare">Hectare</option>
@@ -339,38 +378,38 @@ export default function FarmerCropsPage() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-emerald-300 font-medium mb-1">Planting Date *</label>
+                  <label className="block text-slate-700 font-bold mb-1">Planting Date *</label>
                   <input
                     type="date"
                     required
                     value={newCrop.plantingDate}
                     onChange={(e) => setNewCrop({ ...newCrop, plantingDate: e.target.value })}
-                    className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-emerald-300 font-medium mb-1">Expected Harvest Date</label>
+                  <label className="block text-slate-700 font-bold mb-1">Expected Harvest Date</label>
                   <input
                     type="date"
                     value={newCrop.expectedHarvestDate}
                     onChange={(e) => setNewCrop({ ...newCrop, expectedHarvestDate: e.target.value })}
-                    className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white"
+                    className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-emerald-300 font-medium mb-1">Crop / Farm Photo (Upload file or leave blank for auto HD photo)</label>
+                <label className="block text-slate-700 font-bold mb-1">Crop / Field Photo</label>
                 <div className="flex items-center gap-3">
                   {newCrop.imageUrl && (
                     <img
                       src={newCrop.imageUrl}
                       alt="Crop Preview"
-                      className="w-14 h-14 rounded-xl object-cover border border-emerald-700/50"
+                      className="w-14 h-14 rounded-xl object-cover border border-slate-200"
                     />
                   )}
-                  <label className="flex-1 cursor-pointer flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border-2 border-dashed border-emerald-500/50 bg-emerald-950/40 hover:bg-emerald-900/40 transition-colors text-emerald-300 font-medium text-xs">
-                    <Sprout className="h-4 w-4 text-emerald-400" />
+                  <label className="flex-1 cursor-pointer flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl border-2 border-dashed border-slate-300 hover:border-emerald-500 bg-slate-50 hover:bg-emerald-50/50 transition-colors text-slate-700 font-medium text-xs">
+                    <Upload className="h-4 w-4 text-emerald-600" />
                     <span>Upload Crop Photo</span>
                     <input
                       type="file"
@@ -392,27 +431,27 @@ export default function FarmerCropsPage() {
               </div>
 
               <div>
-                <label className="block text-emerald-300 font-medium mb-1">Field Notes</label>
+                <label className="block text-slate-700 font-bold mb-1">Field Notes</label>
                 <textarea
                   rows={2}
                   placeholder="Soil prep notes, seed supplier, drip setup..."
                   value={newCrop.notes}
                   onChange={(e) => setNewCrop({ ...newCrop, notes: e.target.value })}
-                  className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white"
+                  className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:outline-none"
                 />
               </div>
 
-              <div className="flex justify-end gap-2 pt-2 border-t border-emerald-900/50">
+              <div className="flex justify-end gap-2 pt-3 border-t border-slate-200">
                 <button
                   type="button"
                   onClick={() => setIsAddModalOpen(false)}
-                  className="px-4 py-2 rounded-xl bg-emerald-950 border border-emerald-800 text-emerald-300 hover:text-white"
+                  className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2 rounded-xl bg-emerald-500 text-[#081C15] font-bold shadow-glow hover:bg-emerald-400"
+                  className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold shadow-xs"
                 >
                   Save Crop Record
                 </button>

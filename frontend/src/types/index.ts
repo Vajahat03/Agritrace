@@ -93,7 +93,9 @@ export interface FertilizerApplication {
   cost?: number;
   supplier?: string;
   notes?: string;
+  crop_name?: string;
   created_at: string;
+  updated_at?: string;
 }
 
 export interface IrrigationRecord {

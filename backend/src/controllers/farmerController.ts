@@ -11,6 +11,7 @@ import {
 import { BatchService } from '../services/batchService';
 import { WeatherService } from '../services/weather/weatherService';
 import { NotificationService } from '../services/notifications/notificationService';
+import { FarmerDirectoryRepository } from '../repositories/farmerDirectoryRepository';
 
 export class FarmerController {
   // Dashboard Aggregation
@@ -385,6 +386,29 @@ export class FarmerController {
       res.status(200).json({ success: true, data: batch });
     } catch (error: any) {
       res.status(500).json({ success: false, error: { code: 'BATCH_UPDATE_ERROR', message: error.message } });
+    }
+  }
+
+  // Public Farmers Directory (for Vendors and Customers)
+  static async listPublicFarmers(_req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const farmers = await FarmerDirectoryRepository.listPublicFarmers();
+      res.status(200).json({ success: true, data: farmers });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: { code: 'FARMER_DIRECTORY_ERROR', message: error.message } });
+    }
+  }
+
+  static async getPublicFarmer(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const farmer = await FarmerDirectoryRepository.getPublicFarmer(req.params.farmerId as string);
+      if (!farmer) {
+        res.status(404).json({ success: false, error: { code: 'FARMER_NOT_FOUND', message: 'Public farmer profile not found' } });
+        return;
+      }
+      res.status(200).json({ success: true, data: farmer });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: { code: 'FARMER_DIRECTORY_ERROR', message: error.message } });
     }
   }
 }

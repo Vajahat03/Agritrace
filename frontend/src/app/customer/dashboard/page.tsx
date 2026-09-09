@@ -17,6 +17,8 @@ import {
   ArrowRight,
   PlusCircle,
   ShieldCheck,
+  Store,
+  Users,
 } from 'lucide-react';
 
 export default function CustomerDashboard() {
@@ -108,8 +110,15 @@ export default function CustomerDashboard() {
       actionButton={
         <div className="flex items-center gap-2">
           <Link
+            href="/customer/farmers"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-slate-300 text-slate-700 font-bold text-xs hover:bg-slate-50 transition-colors"
+          >
+            <Users className="h-4 w-4 text-emerald-600" />
+            <span>Discover Farmers</span>
+          </Link>
+          <Link
             href="/customer/freshness-bag"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-[#081C15] font-bold text-xs shadow-glow hover:bg-emerald-400"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors"
           >
             <ScanLine className="h-4 w-4" />
             <span>Open Freshness Bag</span>
@@ -149,18 +158,18 @@ export default function CustomerDashboard() {
         />
       </div>
 
-      {/* Main Grid: Freshness Bag Summary & Recent Orders */}
+      {/* Main Grid: Freshness Bag Summary & Marketplace Shortcut */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Freshness Bag Section */}
-        <div className="rounded-3xl glass-card p-6 border border-emerald-800/40 space-y-4">
-          <div className="flex items-center justify-between">
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <ScanLine className="h-5 w-5 text-emerald-400" />
+        <div className="rounded-2xl bg-white p-6 border border-slate-200 shadow-xs space-y-4">
+          <div className="flex items-center justify-between pb-2 border-b border-slate-100">
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <ScanLine className="h-4 w-4 text-emerald-600" />
               <span>Digital Freshness Bag (At Home)</span>
             </h3>
             <Link
               href="/customer/freshness-bag"
-              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1"
+              className="text-xs font-bold text-emerald-700 hover:text-emerald-800 flex items-center gap-1"
             >
               Scan / Manage <ArrowRight className="h-3.5 w-3.5" />
             </Link>
@@ -170,10 +179,10 @@ export default function CustomerDashboard() {
             {bagItems.map((item) => (
               <div
                 key={item.id}
-                className="p-4 rounded-2xl bg-emerald-950/40 border border-emerald-800/40 flex items-center justify-between gap-3 text-xs"
+                className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between gap-3 text-xs"
               >
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 rounded-xl overflow-hidden bg-emerald-900/60 shrink-0">
+                  <div className="h-12 w-12 rounded-xl overflow-hidden bg-slate-200 shrink-0 border border-slate-200">
                     <img
                       src={item.latest_scan?.image_url || 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?w=200'}
                       alt={item.produce_name}
@@ -181,9 +190,9 @@ export default function CustomerDashboard() {
                     />
                   </div>
                   <div>
-                    <h4 className="font-bold text-white">{item.produce_name}</h4>
-                    <p className="text-emerald-300/70 text-[11px]">
-                      Est. Use-By: <span className="font-semibold text-amber-300">{item.latest_scan?.predicted_use_by_date}</span>
+                    <h4 className="font-bold text-slate-900">{item.produce_name}</h4>
+                    <p className="text-slate-500 text-[11px] mt-0.5">
+                      Est. Use-By: <span className="font-bold text-amber-800">{item.latest_scan?.predicted_use_by_date}</span>
                     </p>
                   </div>
                 </div>
@@ -192,13 +201,13 @@ export default function CustomerDashboard() {
                   <span
                     className={`inline-block px-2.5 py-1 rounded-full text-[10px] font-bold border ${
                       (item.latest_scan?.remaining_shelf_life_days ?? 5) <= 2
-                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/40 glow-amber'
-                        : 'bg-emerald-500/20 text-emerald-300 border-emerald-500/30'
+                        ? 'bg-amber-50 text-amber-800 border-amber-200'
+                        : 'bg-emerald-50 text-emerald-800 border-emerald-200'
                     }`}
                   >
                     {item.latest_scan?.remaining_shelf_life_days} Days Left
                   </span>
-                  <p className="text-[10px] text-emerald-400/80 mt-1">
+                  <p className="text-[10px] text-slate-500 font-semibold mt-1">
                     Freshness: {item.latest_scan?.freshness_score}%
                   </p>
                 </div>
@@ -208,22 +217,22 @@ export default function CustomerDashboard() {
         </div>
 
         {/* Marketplace Shortcut */}
-        <div className="rounded-3xl glass-card p-6 border border-emerald-800/40 flex flex-col justify-between space-y-6">
+        <div className="rounded-2xl bg-white p-6 border border-slate-200 shadow-xs flex flex-col justify-between space-y-6">
           <div className="space-y-3">
-            <span className="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-950 border border-emerald-700 text-emerald-300 inline-block">
+            <span className="text-xs font-bold px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 inline-block">
               Direct Farmer Produce
             </span>
-            <h3 className="text-xl font-bold text-white leading-tight">
+            <h3 className="text-xl font-bold text-slate-900 leading-tight">
               Order Verified Produce Direct From Harvest
             </h3>
-            <p className="text-xs text-emerald-100/70 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Explore local farm harvest batches, inspect fertilizer & water history before ordering, and track freshness upon delivery.
             </p>
           </div>
 
           <Link
             href="/customer/marketplace"
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-[#081C15] font-bold text-sm shadow-glow hover:scale-[1.02] transition-all"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors"
           >
             <ShoppingBag className="h-4 w-4" />
             <span>Browse Produce Marketplace</span>

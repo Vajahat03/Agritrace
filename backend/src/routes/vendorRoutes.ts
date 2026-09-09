@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { VendorController } from '../controllers/vendorController';
+import { FarmerController } from '../controllers/farmerController';
 import { authMiddleware } from '../middleware/authMiddleware';
 import { requireRole } from '../middleware/roleMiddleware';
 import { validate } from '../middleware/validateMiddleware';
@@ -16,6 +17,10 @@ router.use(authMiddleware);
 router.use(requireRole('VENDOR', 'ADMIN'));
 
 router.get('/dashboard', VendorController.getDashboard);
+
+// Read-only public farmer directory for vendors
+router.get('/farmers', FarmerController.listPublicFarmers);
+router.get('/farmers/:farmerId', FarmerController.getPublicFarmer);
 
 // Inventory
 router.get('/inventory', VendorController.getInventory);

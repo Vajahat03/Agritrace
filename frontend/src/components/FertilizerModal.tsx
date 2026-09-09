@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { FertilizerApplication } from '../types';
-import { X, FlaskConical, Calendar, DollarSign } from 'lucide-react';
+import { X, FlaskConical, Calendar, DollarSign, Sprout } from 'lucide-react';
 
 interface FertilizerModalProps {
   isOpen: boolean;
@@ -90,14 +90,19 @@ export function FertilizerModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-sm p-4 overflow-y-auto">
-      <div className="w-full max-w-lg rounded-2xl glass-card border border-emerald-500/30 p-6 space-y-5 my-8">
-        <div className="flex items-center justify-between border-b border-emerald-800/50 pb-3">
-          <div className="flex items-center gap-2 text-emerald-300 font-bold text-lg">
-            <FlaskConical className="h-5 w-5 text-emerald-400" />
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 backdrop-blur-xs p-4 overflow-y-auto">
+      <div className="w-full max-w-lg rounded-2xl bg-white border border-slate-200 p-6 space-y-5 my-8 shadow-2xl animate-in fade-in zoom-in-95 duration-150">
+        <div className="flex items-center justify-between border-b border-slate-200 pb-3">
+          <div className="flex items-center gap-2.5 text-slate-900 font-bold text-lg">
+            <div className="p-2 rounded-xl bg-emerald-50 text-emerald-700">
+              <FlaskConical className="h-5 w-5" />
+            </div>
             <h3>{initialData ? 'Edit Historical Fertilizer Log' : 'Record Fertilizer Application'}</h3>
           </div>
-          <button onClick={onClose} className="text-emerald-400/60 hover:text-white transition-colors">
+          <button
+            onClick={onClose}
+            className="p-1 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
+          >
             <X className="h-5 w-5" />
           </button>
         </div>
@@ -106,22 +111,22 @@ export function FertilizerModal({
           {/* Fertilizer Name & Type */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-emerald-300 font-medium mb-1">Fertilizer Name *</label>
+              <label className="block text-slate-700 font-bold mb-1">Fertilizer Name *</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. Urea, NPK 19:19:19"
                 value={formData.fertilizerName}
                 onChange={(e) => setFormData({ ...formData, fertilizerName: e.target.value })}
-                className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-emerald-300 font-medium mb-1">Type *</label>
+              <label className="block text-slate-700 font-bold mb-1">Type *</label>
               <select
                 value={formData.fertilizerType}
                 onChange={(e) => setFormData({ ...formData, fertilizerType: e.target.value })}
-                className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 focus:outline-none"
               >
                 <option value="NPK">NPK Complex</option>
                 <option value="Urea">Urea (Nitrogen)</option>
@@ -136,21 +141,21 @@ export function FertilizerModal({
           {/* Date & Method */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="block text-emerald-300 font-medium mb-1">Application Date *</label>
+              <label className="block text-slate-700 font-bold mb-1">Application Date *</label>
               <input
                 type="date"
                 required
                 value={formData.applicationDate}
                 onChange={(e) => setFormData({ ...formData, applicationDate: e.target.value })}
-                className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-emerald-300 font-medium mb-1">Application Method</label>
+              <label className="block text-slate-700 font-bold mb-1">Application Method</label>
               <select
                 value={formData.method}
                 onChange={(e) => setFormData({ ...formData, method: e.target.value })}
-                className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 focus:outline-none"
               >
                 <option value="SOIL">Soil Top Dressing</option>
                 <option value="DRIP">Drip Fertigation</option>
@@ -163,7 +168,7 @@ export function FertilizerModal({
           {/* Quantity, Unit & Cost */}
           <div className="grid grid-cols-3 gap-3">
             <div>
-              <label className="block text-emerald-300 font-medium mb-1">Quantity *</label>
+              <label className="block text-slate-700 font-bold mb-1">Quantity *</label>
               <input
                 type="number"
                 step="0.1"
@@ -171,15 +176,15 @@ export function FertilizerModal({
                 required
                 value={formData.quantity}
                 onChange={(e) => setFormData({ ...formData, quantity: Number(e.target.value) })}
-                className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 focus:outline-none"
               />
             </div>
             <div>
-              <label className="block text-emerald-300 font-medium mb-1">Unit</label>
+              <label className="block text-slate-700 font-bold mb-1">Unit</label>
               <select
                 value={formData.unit}
                 onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
-                className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 focus:outline-none"
               >
                 <option value="kg">kg</option>
                 <option value="grams">grams</option>
@@ -189,72 +194,72 @@ export function FertilizerModal({
               </select>
             </div>
             <div>
-              <label className="block text-emerald-300 font-medium mb-1">Total Cost (₹)</label>
+              <label className="block text-slate-700 font-bold mb-1">Total Cost (₹)</label>
               <input
                 type="number"
                 min="0"
                 value={formData.cost}
                 onChange={(e) => setFormData({ ...formData, cost: Number(e.target.value) })}
-                className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white focus:border-emerald-500 focus:outline-none"
+                className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:ring-1 focus:ring-emerald-600 focus:outline-none"
               />
             </div>
           </div>
 
           {/* NPK Values (Optional) */}
-          <div className="rounded-xl bg-emerald-950/40 p-3 border border-emerald-900/50 space-y-2">
-            <span className="text-[11px] font-semibold text-emerald-400">Nutrient Composition (Optional % N-P-K)</span>
+          <div className="rounded-xl bg-emerald-50/60 p-3 border border-emerald-200 space-y-2">
+            <span className="text-[11px] font-bold text-emerald-900">Nutrient Composition (Optional % N-P-K)</span>
             <div className="grid grid-cols-3 gap-2">
               <input
                 type="number"
                 placeholder="N %"
                 value={formData.nValue}
                 onChange={(e) => setFormData({ ...formData, nValue: e.target.value })}
-                className="rounded-lg bg-emerald-950 border border-emerald-800 px-2 py-1.5 text-white"
+                className="rounded-lg bg-white border border-emerald-300 px-2 py-1.5 text-slate-900 focus:outline-none"
               />
               <input
                 type="number"
                 placeholder="P %"
                 value={formData.pValue}
                 onChange={(e) => setFormData({ ...formData, pValue: e.target.value })}
-                className="rounded-lg bg-emerald-950 border border-emerald-800 px-2 py-1.5 text-white"
+                className="rounded-lg bg-white border border-emerald-300 px-2 py-1.5 text-slate-900 focus:outline-none"
               />
               <input
                 type="number"
                 placeholder="K %"
                 value={formData.kValue}
                 onChange={(e) => setFormData({ ...formData, kValue: e.target.value })}
-                className="rounded-lg bg-emerald-950 border border-emerald-800 px-2 py-1.5 text-white"
+                className="rounded-lg bg-white border border-emerald-300 px-2 py-1.5 text-slate-900 focus:outline-none"
               />
             </div>
           </div>
 
-          {/* Notes */}
+          {/* Supplier Notes */}
           <div>
-            <label className="block text-emerald-300 font-medium mb-1">Supplier / Field Notes</label>
+            <label className="block text-slate-700 font-bold mb-1">Supplier / Field Application Notes</label>
             <textarea
               rows={2}
-              placeholder="e.g. Applied post-weeding before light irrigation"
+              placeholder="e.g. Procured from APMC agro store, applied before morning drip cycle"
               value={formData.notes}
               onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-              className="w-full rounded-xl bg-emerald-950/60 border border-emerald-800/60 px-3 py-2 text-white focus:border-emerald-500 focus:outline-none"
+              className="w-full rounded-xl bg-white border border-slate-300 px-3 py-2 text-slate-900 focus:border-emerald-600 focus:outline-none"
             />
           </div>
 
           {/* Submit Actions */}
-          <div className="flex items-center justify-end gap-2 pt-2 border-t border-emerald-900/50">
+          <div className="flex items-center justify-end gap-2 pt-3 border-t border-slate-200">
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 rounded-xl bg-emerald-950 border border-emerald-800 text-emerald-300 hover:text-white font-medium"
+              className="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition-colors"
             >
               Cancel
             </button>
             <button
               type="submit"
               disabled={submitting}
-              className="px-5 py-2 rounded-xl bg-emerald-500 text-[#081C15] font-bold shadow-glow hover:bg-emerald-400 disabled:opacity-50"
+              className="px-5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition-colors disabled:opacity-60"
             >
-              {submitting ? 'Saving...' : initialData ? 'Update Record' : 'Log Application'}
+              {submitting ? 'Saving...' : initialData ? 'Update Record' : 'Save Fertilizer Record'}
             </button>
           </div>
         </form>

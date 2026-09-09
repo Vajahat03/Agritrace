@@ -1,5 +1,7 @@
 import { Router } from 'express';
 import { CustomerController } from '../controllers/customerController';
+import { VendorController } from '../controllers/vendorController';
+import { FarmerController } from '../controllers/farmerController';
 import { authMiddleware, optionalAuthMiddleware } from '../middleware/authMiddleware';
 import { requireRole } from '../middleware/roleMiddleware';
 import { validate } from '../middleware/validateMiddleware';
@@ -12,10 +14,14 @@ import {
 
 const router = Router();
 
-// Publicly readable marketplace endpoints
+// Publicly readable marketplace & directory endpoints
 router.get('/marketplace', optionalAuthMiddleware, CustomerController.getMarketplace);
 router.get('/products', optionalAuthMiddleware, CustomerController.getMarketplace);
 router.get('/products/:productId', optionalAuthMiddleware, CustomerController.getProductDetails);
+router.get('/vendors', optionalAuthMiddleware, VendorController.listPublicVendors);
+router.get('/vendors/:vendorId', optionalAuthMiddleware, VendorController.getPublicVendor);
+router.get('/farmers', optionalAuthMiddleware, FarmerController.listPublicFarmers);
+router.get('/farmers/:farmerId', optionalAuthMiddleware, FarmerController.getPublicFarmer);
 
 // Authenticated Customer Endpoints
 router.use(authMiddleware);
