@@ -23,6 +23,7 @@ import {
   DollarSign,
   Bot,
   Eye,
+  Store,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -38,6 +39,7 @@ export function Sidebar({ portal }: SidebarProps) {
     { label: t.farmer.myFarms, href: '/farmer/farms', icon: Tractor },
     { label: t.farmer.myCrops, href: '/farmer/crops', icon: Sprout },
     { label: t.farmer.produceBatches, href: '/farmer/batches', icon: Package },
+    { label: 'Vendors', href: '/farmer/vendors', icon: Store },
     { label: t.common.weather, href: '/farmer/weather', icon: CloudSun },
     { label: t.common.notifications, href: '/farmer/notifications', icon: Bell },
     { label: 'AI Agents', href: '/farmer/ai-agents', icon: Bot },

@@ -3,8 +3,31 @@ import { AuthRequest } from '../types';
 import { VendorProcurementService } from '../services/vendorProcurementService';
 import { CartOrderService } from '../services/cartOrderService';
 import { NotificationService } from '../services/notifications/notificationService';
+import { VendorDirectoryRepository } from '../repositories/vendorDirectoryRepository';
 
 export class VendorController {
+  static async listPublicVendors(_req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const vendors = await VendorDirectoryRepository.listPublicVendors();
+      res.status(200).json({ success: true, data: vendors });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: { code: 'VENDOR_DIRECTORY_ERROR', message: error.message } });
+    }
+  }
+
+  static async getPublicVendor(req: AuthRequest, res: Response): Promise<void> {
+    try {
+      const vendor = await VendorDirectoryRepository.getPublicVendor(req.params.vendorId as string);
+      if (!vendor) {
+        res.status(404).json({ success: false, error: { code: 'VENDOR_NOT_FOUND', message: 'Public vendor profile not found' } });
+        return;
+      }
+      res.status(200).json({ success: true, data: vendor });
+    } catch (error: any) {
+      res.status(500).json({ success: false, error: { code: 'VENDOR_DIRECTORY_ERROR', message: error.message } });
+    }
+  }
+
   static async getDashboard(req: AuthRequest, res: Response): Promise<void> {
     try {
       const vendorId = req.user!.id;
