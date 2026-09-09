@@ -76,7 +76,7 @@ export function AIAgentsModal({
     setRunning(true);
     setError(null);
     try {
-      const res: any = await apiClient.post('/ai/agents/run', {
+      const res: any = await apiClient.post('/ai/agent/run', {
         batchId: activeBatchId,
         produceType: selectedProduce,
         quantityKg: Number(quantity),

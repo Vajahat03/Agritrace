@@ -118,7 +118,7 @@ export function VisionFreshnessModal({
     setScanning(true);
     setError(null);
     try {
-      const res: any = await apiClient.post('/ai/scan', {
+      const res: any = await apiClient.post('/ai/vision/analyze', {
         produceType,
         storageDays: Number(storageDays),
         storageType,

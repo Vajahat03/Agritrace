@@ -7,6 +7,7 @@ Multi-Agent Orchestration, SmartBag Telemetry, Marketplace, QR Traceability, and
 from typing import Dict, Any, List, Optional
 import io
 import time
+import base64
 from PIL import Image
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -91,6 +92,32 @@ class ShelfLifeRequest(BaseModel):
     harvest_age_days: float = 1.0
     storage_type: str = "ambient"
 
+
+class VisionCompatibilityRequest(BaseModel):
+    imageUrl: Optional[str] = None
+
+
+class ShelfLifeCompatibilityRequest(BaseModel):
+    produceType: str = "tomato"
+    currentFreshnessScore: float = 75.0
+    qualityScore: float = 75.0
+    defectProbability: float = 0.15
+    temperature: float = 22.0
+    humidity: float = 80.0
+    storageCondition: str = "ambient"
+
+
+class AgentCompatibilityRequest(BaseModel):
+    batchId: str = "BATCH-TOM-001"
+    produceType: str = "tomato"
+    quantityKg: float = 500.0
+    temperatureC: float = 24.0
+    humidityRh: float = 78.0
+    gasVocPpm: float = 18.0
+    marketTrend: str = "falling"
+    smartbagActive: bool = True
+    imageUrl: Optional[str] = None
+
 @app.post("/api/shelf-life/predict")
 def predict_shelf_life_endpoint(req: ShelfLifeRequest):
     return predict_shelf_life(
@@ -102,6 +129,48 @@ def predict_shelf_life_endpoint(req: ShelfLifeRequest):
         humidity_rh=req.humidity_rh,
         harvest_age_days=req.harvest_age_days,
         storage_type=req.storage_type
+    )
+
+
+@app.post("/api/shelflife/predict")
+def predict_shelf_life_compatibility(req: ShelfLifeCompatibilityRequest):
+    return predict_shelf_life(
+        produce_type=req.produceType,
+        freshness_score=req.currentFreshnessScore,
+        quality_score=req.qualityScore,
+        defect_probability=req.defectProbability,
+        temperature_c=req.temperature,
+        humidity_rh=req.humidity,
+        storage_type=req.storageCondition,
+    )
+
+
+@app.post("/api/vision/analyze")
+def analyze_vision_compatibility(req: VisionCompatibilityRequest):
+    if not req.imageUrl or not req.imageUrl.startswith("data:"):
+        raise HTTPException(status_code=400, detail="imageUrl must be a base64 data URL")
+    try:
+        encoded = req.imageUrl.split(",", 1)[1]
+        image = Image.open(io.BytesIO(base64.b64decode(encoded))).convert("RGB")
+    except Exception as exc:
+        raise HTTPException(status_code=400, detail=f"Invalid image data URL: {exc}")
+    return run_vision_pipeline(image)
+
+
+@app.post("/api/agent/run")
+def run_agent_compatibility(req: AgentCompatibilityRequest):
+    return orchestrate_batch(
+        batch_id=req.batchId,
+        produce_type=req.produceType,
+        quantity_kg=req.quantityKg,
+        telemetry={
+            "temperature_c": req.temperatureC,
+            "humidity_rh": req.humidityRh,
+            "gas_voc_ppm": req.gasVocPpm,
+            "smartbag_active": req.smartbagActive,
+        },
+        market_trend=req.marketTrend,
+        candidate_buyers=list(DB.buyers.values()),
     )
 
 # ----------------- AGENT ORCHESTRATION -----------------

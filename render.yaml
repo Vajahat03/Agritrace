@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: agritrace-backend
+    runtime: node
+    rootDir: backend
+    buildCommand: npm ci && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/v1/health
+
+  - type: web
+    name: agritrace-ai
+    runtime: python
+    rootDir: agritrace - agents
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.app:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health

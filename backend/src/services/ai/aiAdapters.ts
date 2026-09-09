@@ -163,7 +163,7 @@ export class PricePredictionServiceAdapter {
 export class RAGServiceAdapter {
   static async query(input: RAGQueryInput): Promise<any> {
     try {
-      const response = await axios.post(`${env.AI_SERVICE_URL}/api/rag/query`, input, { timeout: 10000 });
+      const response = await axios.post(`${env.AI_SERVICE_URL}/api/nlp/query`, input, { timeout: 10000 });
       return response.data;
     } catch {
       return {
