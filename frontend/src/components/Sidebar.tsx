@@ -21,6 +21,8 @@ import {
   ScanLine,
   Truck,
   DollarSign,
+  Bot,
+  Eye,
 } from 'lucide-react';
 
 interface SidebarProps {
@@ -38,6 +40,8 @@ export function Sidebar({ portal }: SidebarProps) {
     { label: t.farmer.produceBatches, href: '/farmer/batches', icon: Package },
     { label: t.common.weather, href: '/farmer/weather', icon: CloudSun },
     { label: t.common.notifications, href: '/farmer/notifications', icon: Bell },
+    { label: 'AI Agents', href: '/farmer/ai-agents', icon: Bot },
+    { label: 'Customer View - Preview', href: '/farmer/customer-view', icon: Eye },
   ];
 
   const vendorNav = [
@@ -46,6 +50,8 @@ export function Sidebar({ portal }: SidebarProps) {
     { label: t.vendor.procurement, href: '/vendor/procurement', icon: Tractor },
     { label: t.vendor.catalog, href: '/vendor/products', icon: ShoppingCart },
     { label: t.vendor.orders, href: '/vendor/orders', icon: Truck },
+    { label: 'AI Agents', href: '/vendor/ai-agents', icon: Bot },
+    { label: 'Customer View - Preview', href: '/vendor/customer-view', icon: Eye },
   ];
 
   const customerNav = [
@@ -55,6 +61,7 @@ export function Sidebar({ portal }: SidebarProps) {
     { label: t.customer.cart, href: '/customer/cart', icon: ShoppingCart },
     { label: t.customer.myOrders, href: '/customer/orders', icon: Package },
     { label: t.customer.favorites, href: '/customer/favorites', icon: Heart },
+    { label: 'AI Agents', href: '/customer/ai-agents', icon: Bot },
   ];
 
   const navItems = portal === 'farmer' ? farmerNav : portal === 'vendor' ? vendorNav : customerNav;
@@ -76,8 +83,8 @@ export function Sidebar({ portal }: SidebarProps) {
                   href={item.href}
                   className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     isActive
-                      ? 'bg-gradient-to-r from-emerald-600/40 to-emerald-700/20 text-emerald-200 border border-emerald-500/40 shadow-glow'
-                      : 'text-emerald-100/70 hover:text-white hover:bg-emerald-900/30'
+                      ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                      : 'text-slate-600 hover:text-emerald-800 hover:bg-emerald-50'
                   }`}
                 >
                   <Icon className={`h-4 w-4 ${isActive ? 'text-emerald-400' : 'text-emerald-400/70'}`} />
@@ -89,17 +96,17 @@ export function Sidebar({ portal }: SidebarProps) {
         </div>
 
         {/* Traceability Banner */}
-        <div className="rounded-xl bg-gradient-to-br from-emerald-900/40 to-green-950/60 p-3.5 border border-emerald-700/40 text-xs text-emerald-200">
-          <div className="flex items-center gap-2 mb-1.5 text-emerald-300 font-semibold">
-            <QrCode className="h-4 w-4 text-emerald-400" />
+        <div className="rounded-xl bg-emerald-50 p-3.5 border border-emerald-200 text-xs text-emerald-900">
+          <div className="flex items-center gap-2 mb-1.5 text-emerald-800 font-semibold">
+            <QrCode className="h-4 w-4 text-emerald-700" />
             <span>Public Traceability</span>
           </div>
-          <p className="text-[11px] text-emerald-300/70 mb-2">
+          <p className="text-[11px] text-emerald-800/75 mb-2">
             Inspect farm origins, fertilizer logs, and cold-chain transitions.
           </p>
           <Link
             href="/trace/batch/TOM-2026-0001"
-            className="inline-block w-full text-center py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 font-medium transition-colors"
+            className="inline-block w-full text-center py-1.5 rounded-lg bg-white hover:bg-emerald-100 text-emerald-800 border border-emerald-200 font-medium transition-colors"
           >
             Scan Demo Batch →
           </Link>

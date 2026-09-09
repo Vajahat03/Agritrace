@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useAuth } from '../context/AuthContext';
 import { useLanguage } from '../context/LanguageContext';
-import { Language, UserRole } from '../types';
+import { Language } from '../types';
 import {
   Sprout,
   Globe,
@@ -13,7 +13,6 @@ import {
   User,
   LogOut,
   ChevronDown,
-  Sparkles,
   ShoppingBag,
   Store,
   QrCode,
@@ -21,11 +20,10 @@ import {
 } from 'lucide-react';
 
 export function Navbar() {
-  const { user, logout, switchDemoRole } = useAuth();
+  const { user, logout } = useAuth();
   const { language, setLanguage, t } = useLanguage();
   const pathname = usePathname();
   const [langDropdown, setLangDropdown] = useState(false);
-  const [roleDropdown, setRoleDropdown] = useState(false);
 
   const languages: { code: Language; label: string }[] = [
     { code: 'en', label: 'English' },
@@ -35,25 +33,19 @@ export function Navbar() {
     { code: 'hinglish', label: 'Hinglish' },
   ];
 
-  const roles: { role: UserRole; label: string; icon: any; color: string }[] = [
-    { role: 'FARMER', label: 'Farmer Portal', icon: Sprout, color: 'text-emerald-400' },
-    { role: 'VENDOR', label: 'Vendor Portal', icon: Store, color: 'text-amber-400' },
-    { role: 'CUSTOMER', label: 'Customer Portal', icon: ShoppingBag, color: 'text-sky-400' },
-  ];
-
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-emerald-500/20 bg-[#081C15]/80 backdrop-blur-md">
+    <header className="sticky top-0 z-40 w-full border-b border-slate-200 bg-white/95 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <div className="flex items-center gap-3">
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-green-700 shadow-glow group-hover:scale-105 transition-transform">
-              <Sprout className="h-6 w-6 text-[#081C15]" />
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-600 shadow-sm group-hover:scale-105 transition-transform">
+              <Sprout className="h-6 w-6 text-white" />
             </div>
             <div>
-              <span className="text-xl font-bold tracking-tight text-white flex items-center gap-1.5">
-                Agri<span className="text-emerald-400">Trace</span>
-                <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-semibold border border-emerald-500/30">
+              <span className="text-xl font-bold tracking-tight text-slate-900 flex items-center gap-1.5">
+                Agri<span className="text-emerald-700">Trace</span>
+                <span className="text-[10px] uppercase tracking-widest px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-700 font-semibold border border-emerald-200">
                   AI Fresh
                 </span>
               </span>
@@ -62,13 +54,13 @@ export function Navbar() {
         </div>
 
         {/* Center Portal Navigation */}
-        <nav className="hidden md:flex items-center gap-1 bg-emerald-950/40 p-1 rounded-xl border border-emerald-800/40">
+        <nav className="hidden md:flex items-center gap-1 bg-slate-50 p-1 rounded-xl border border-slate-200">
           <Link
             href="/farmer/dashboard"
             className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
               pathname.startsWith('/farmer')
-                ? 'bg-emerald-600/30 text-emerald-300 border border-emerald-500/40'
-                : 'text-emerald-100/70 hover:text-white hover:bg-emerald-900/30'
+                ? 'bg-emerald-100 text-emerald-800 border border-emerald-200'
+                : 'text-slate-600 hover:text-emerald-800 hover:bg-white'
             }`}
           >
             <Sprout className="h-4 w-4 text-emerald-400" />
@@ -78,8 +70,8 @@ export function Navbar() {
             href="/vendor/dashboard"
             className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
               pathname.startsWith('/vendor')
-                ? 'bg-amber-600/30 text-amber-300 border border-amber-500/40'
-                : 'text-emerald-100/70 hover:text-white hover:bg-emerald-900/30'
+                ? 'bg-amber-100 text-amber-800 border border-amber-200'
+                : 'text-slate-600 hover:text-amber-800 hover:bg-white'
             }`}
           >
             <Store className="h-4 w-4 text-amber-400" />
@@ -89,8 +81,8 @@ export function Navbar() {
             href="/customer/dashboard"
             className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
               pathname.startsWith('/customer')
-                ? 'bg-sky-600/30 text-sky-300 border border-sky-500/40'
-                : 'text-emerald-100/70 hover:text-white hover:bg-emerald-900/30'
+                ? 'bg-sky-100 text-sky-800 border border-sky-200'
+                : 'text-slate-600 hover:text-sky-800 hover:bg-white'
             }`}
           >
             <ShoppingBag className="h-4 w-4 text-sky-400" />
@@ -100,8 +92,8 @@ export function Navbar() {
             href="/trace/batch/TOM-2026-0001"
             className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-1.5 ${
               pathname.startsWith('/trace')
-                ? 'bg-purple-600/30 text-purple-300 border border-purple-500/40'
-                : 'text-emerald-100/70 hover:text-white hover:bg-emerald-900/30'
+                ? 'bg-purple-100 text-purple-800 border border-purple-200'
+                : 'text-slate-600 hover:text-purple-800 hover:bg-white'
             }`}
           >
             <QrCode className="h-4 w-4 text-purple-400" />
@@ -115,7 +107,7 @@ export function Navbar() {
           <div className="relative">
             <button
               onClick={() => setLangDropdown(!langDropdown)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-900/30 border border-emerald-700/40 text-xs font-medium text-emerald-200 hover:border-emerald-500/60 transition-all"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-slate-200 text-xs font-medium text-slate-700 hover:border-emerald-400 transition-all"
             >
               <Globe className="h-3.5 w-3.5 text-emerald-400" />
               <span>{languages.find((l) => l.code === language)?.label.split(' ')[0]}</span>
@@ -123,7 +115,7 @@ export function Navbar() {
             </button>
 
             {langDropdown && (
-              <div className="absolute right-0 mt-2 w-48 rounded-xl bg-[#0D281E] border border-emerald-600/30 shadow-2xl p-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
+              <div className="absolute right-0 mt-2 w-48 rounded-xl bg-white border border-slate-200 shadow-xl p-1.5 z-50 animate-in fade-in slide-in-from-top-2 duration-150">
                 {languages.map((l) => (
                   <button
                     key={l.code}
@@ -134,7 +126,7 @@ export function Navbar() {
                     className={`w-full text-left px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
                       language === l.code
                         ? 'bg-emerald-600 text-white'
-                        : 'text-emerald-200 hover:bg-emerald-800/40'
+                        : 'text-slate-700 hover:bg-emerald-50'
                     }`}
                   >
                     {l.label}
@@ -144,57 +136,17 @@ export function Navbar() {
             )}
           </div>
 
-          {/* Quick Role Switcher */}
-          <div className="relative">
-            <button
-              onClick={() => setRoleDropdown(!roleDropdown)}
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-xs font-medium text-emerald-300 hover:bg-emerald-500/20 transition-all"
-            >
-              <Sparkles className="h-3.5 w-3.5 text-emerald-400" />
-              <span className="hidden sm:inline font-semibold">{user?.role || 'FARMER'}</span>
-              <ChevronDown className="h-3 w-3 opacity-70" />
-            </button>
-
-            {roleDropdown && (
-              <div className="absolute right-0 mt-2 w-56 rounded-xl bg-[#0D281E] border border-emerald-600/30 shadow-2xl p-1.5 z-50">
-                <div className="px-3 py-1.5 text-[11px] font-semibold text-emerald-400 uppercase tracking-wider">
-                  Switch Active Portal
-                </div>
-                {roles.map((r) => {
-                  const Icon = r.icon;
-                  return (
-                    <button
-                      key={r.role}
-                      onClick={() => {
-                        switchDemoRole(r.role);
-                        setRoleDropdown(false);
-                      }}
-                      className={`w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs font-medium transition-colors ${
-                        user?.role === r.role
-                          ? 'bg-emerald-600/40 text-white border border-emerald-500/40'
-                          : 'text-emerald-200 hover:bg-emerald-800/40'
-                      }`}
-                    >
-                      <Icon className={`h-4 w-4 ${r.color}`} />
-                      <span>{r.label}</span>
-                    </button>
-                  );
-                })}
-              </div>
-            )}
-          </div>
-
           {/* User Profile / Logout */}
           {user ? (
-            <div className="flex items-center gap-2 pl-2 border-l border-emerald-800/50">
+            <div className="flex items-center gap-2 pl-2 border-l border-slate-200">
               <div className="hidden lg:block text-right">
-                <p className="text-xs font-semibold text-white leading-tight">{user.full_name}</p>
-                <p className="text-[10px] text-emerald-400 font-medium">{user.role}</p>
+                <p className="text-xs font-semibold text-slate-900 leading-tight">{user.full_name}</p>
+                <p className="text-[10px] text-emerald-700 font-medium">{user.role}</p>
               </div>
               <button
                 onClick={logout}
                 title="Log Out"
-                className="p-2 rounded-lg bg-emerald-950/60 border border-emerald-800/40 text-emerald-300 hover:text-red-400 hover:border-red-500/40 transition-colors"
+                className="p-2 rounded-lg bg-white border border-slate-200 text-slate-600 hover:text-red-600 hover:border-red-200 transition-colors"
               >
                 <LogOut className="h-4 w-4" />
               </button>
@@ -202,7 +154,7 @@ export function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="px-4 py-1.5 rounded-lg bg-emerald-500 text-[#081C15] font-semibold text-xs hover:bg-emerald-400 transition-colors shadow-glow"
+              className="px-4 py-1.5 rounded-lg bg-emerald-600 text-white font-semibold text-xs hover:bg-emerald-700 transition-colors"
             >
               Sign In
             </Link>
