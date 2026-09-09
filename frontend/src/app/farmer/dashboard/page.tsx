@@ -94,14 +94,14 @@ export default function FarmerDashboard() {
         <div className="flex items-center gap-2">
           <Link
             href="/farmer/farms"
-            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-950/60 border border-emerald-800 text-emerald-300 font-semibold text-xs hover:bg-emerald-900/60 transition-all"
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white border border-emerald-600 text-emerald-800 font-semibold text-xs hover:bg-emerald-50 transition-all"
           >
             <Tractor className="h-4 w-4" />
             <span>Add Farm</span>
           </Link>
           <Link
             href="/farmer/crops"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 text-[#081C15] font-bold text-xs shadow-glow hover:bg-emerald-400 transition-all"
+            className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-700 text-white font-bold text-xs shadow-sm hover:bg-emerald-800 transition-all"
           >
             <PlusCircle className="h-4 w-4" />
             <span>Plant New Crop</span>
@@ -147,18 +147,18 @@ export default function FarmerDashboard() {
         <div className="lg:col-span-2 space-y-4">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                <Sprout className="h-5 w-5 text-emerald-400" />
+              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
+                <Sprout className="h-5 w-5 text-emerald-700" />
                 <span>Simultaneous Crops (Multi-Crop Overview)</span>
               </h2>
-              <p className="text-xs text-emerald-300/70">
+              <p className="text-xs text-slate-600">
                 Click any crop card to manage its dedicated fertilizer history, irrigation, and harvest batches.
               </p>
             </div>
             {crops.length > 0 && (
               <Link
                 href="/farmer/crops"
-                className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 flex items-center gap-1"
+                className="text-xs font-semibold text-emerald-700 hover:text-emerald-900 flex items-center gap-1"
               >
                 View All ({crops.length}) <ArrowRight className="h-3.5 w-3.5" />
               </Link>
@@ -166,26 +166,26 @@ export default function FarmerDashboard() {
           </div>
 
           {loading ? (
-            <div className="text-center py-12 text-emerald-400">Loading dashboard...</div>
+            <div className="text-center py-12 text-emerald-700">Loading dashboard...</div>
           ) : crops.length === 0 ? (
             <div className="rounded-3xl glass-card p-8 text-center border border-emerald-800/40 space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center mx-auto border border-emerald-500/20">
+              <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-700 flex items-center justify-center mx-auto border border-emerald-200">
                 <Sprout className="h-6 w-6" />
               </div>
-              <h3 className="text-base font-bold text-white">No Active Crops</h3>
-              <p className="text-xs text-emerald-400/70 max-w-sm mx-auto">
+              <h3 className="text-base font-bold text-slate-900">No Active Crops</h3>
+              <p className="text-xs text-slate-600 max-w-sm mx-auto">
                 You haven&apos;t planted any crops yet. Register your farm and plant your first crop to monitor growth cycles and fertilizer history.
               </p>
               <div className="flex justify-center gap-3 pt-2">
                 <Link
                   href="/farmer/farms"
-                  className="px-4 py-2 rounded-xl bg-emerald-950 border border-emerald-800 text-emerald-300 text-xs font-semibold hover:bg-emerald-900"
+                  className="px-4 py-2 rounded-xl bg-white border border-emerald-600 text-emerald-800 text-xs font-semibold hover:bg-emerald-50"
                 >
                   Register Farm
                 </Link>
                 <Link
                   href="/farmer/crops"
-                  className="px-4 py-2 rounded-xl bg-emerald-500 text-[#081C15] text-xs font-bold shadow-glow hover:bg-emerald-400"
+                  className="px-4 py-2 rounded-xl bg-emerald-700 text-white text-xs font-bold shadow-sm hover:bg-emerald-800"
                 >
                   Plant New Crop
                 </Link>
@@ -209,41 +209,41 @@ export default function FarmerDashboard() {
           <WeatherWidget weather={weather} locationName={farms[0]?.location_name || 'My Farm Location'} />
 
           {/* Quick Action Box */}
-          <div className="rounded-2xl glass-card p-5 border border-emerald-800/40 space-y-3">
-            <h3 className="text-sm font-bold text-white flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-emerald-400" />
+          <div className="rounded-2xl glass-card p-5 border border-slate-200 space-y-3">
+            <h3 className="text-sm font-bold text-slate-900 flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-emerald-700" />
               <span>Farmer Field Tools</span>
             </h3>
             <div className="space-y-2 text-xs">
               <Link
                 href="/farmer/farms"
-                className="w-full flex items-center justify-between p-2.5 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/40 border border-emerald-800/40 text-emerald-200 font-medium transition-colors"
+                className="w-full flex items-center justify-between p-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 font-medium transition-colors"
               >
                 <span className="flex items-center gap-2">
-                  <Tractor className="h-4 w-4 text-emerald-400" />
+                  <Tractor className="h-4 w-4 text-emerald-700" />
                   <span>Manage Farms & Plots</span>
                 </span>
-                <ArrowRight className="h-3.5 w-3.5 text-emerald-400/70" />
+                <ArrowRight className="h-3.5 w-3.5 text-emerald-700" />
               </Link>
               <Link
                 href="/farmer/batches"
-                className="w-full flex items-center justify-between p-2.5 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/40 border border-emerald-800/40 text-emerald-200 font-medium transition-colors"
+                className="w-full flex items-center justify-between p-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 text-emerald-900 font-medium transition-colors"
               >
                 <span className="flex items-center gap-2">
-                  <Package className="h-4 w-4 text-amber-400" />
+                  <Package className="h-4 w-4 text-amber-600" />
                   <span>Mint Produce Batch</span>
                 </span>
-                <ArrowRight className="h-3.5 w-3.5 text-amber-400/70" />
+                <ArrowRight className="h-3.5 w-3.5 text-amber-600" />
               </Link>
               <Link
                 href="/trace/batch/TOM-2026-0001"
-                className="w-full flex items-center justify-between p-2.5 rounded-xl bg-emerald-950/40 hover:bg-emerald-900/40 border border-emerald-800/40 text-emerald-200 font-medium transition-colors"
+                className="w-full flex items-center justify-between p-2.5 rounded-xl bg-purple-50 hover:bg-purple-100 border border-purple-200 text-purple-900 font-medium transition-colors"
               >
                 <span className="flex items-center gap-2">
-                  <ShieldCheck className="h-4 w-4 text-purple-400" />
+                  <ShieldCheck className="h-4 w-4 text-purple-700" />
                   <span>Public QR Trace Viewer</span>
                 </span>
-                <ArrowRight className="h-3.5 w-3.5 text-purple-400/70" />
+                <ArrowRight className="h-3.5 w-3.5 text-purple-700" />
               </Link>
             </div>
           </div>
