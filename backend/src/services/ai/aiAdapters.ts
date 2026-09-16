@@ -49,7 +49,7 @@ export interface AgentRunInput {
 export class VisionServiceAdapter {
   static async analyze(input: VisionAnalysisInput): Promise<any> {
     try {
-      const response = await axios.post(`${env.AI_SERVICE_URL}/api/vision/analyze`, input, { timeout: 10000 });
+      const response = await axios.post(`${env.AI_SERVICE_URL}/api/vision/analyze`, input, { timeout: 60000 });
       return response.data;
     } catch {
       // Contract specification placeholder response
