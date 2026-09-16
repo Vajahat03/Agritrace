@@ -17,7 +17,11 @@ const app: Express = express();
 app.use(helmet({ crossOriginResourcePolicy: { policy: 'cross-origin' } }));
 app.use(
   cors({
-    origin: [env.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000'],
+    origin: (origin, callback) => {
+      const allowedOrigins = [env.FRONTEND_URL, 'http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000'];
+      const isVercelPreview = !!origin && /^https:\/\/agritrace-[a-z0-9-]+\.vercel\.app$/.test(origin);
+      callback(null, !origin || allowedOrigins.includes(origin) || isVercelPreview);
+    },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'x-dev-user-id', 'x-dev-user-role', 'x-dev-user-email', 'x-dev-user-name'],

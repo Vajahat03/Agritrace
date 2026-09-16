@@ -6,7 +6,7 @@ import {
   simulateAgentDAGRun,
 } from './aiClientService';
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+const API_BASE_URL = (process.env.NEXT_PUBLIC_API_URL || 'https://agritrace-backend-m0g1.onrender.com/api/v1').replace(/\/$/, '');
 
 export const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -45,7 +45,7 @@ apiClient.interceptors.request.use(async (config) => {
 
 // Interceptor to format responses and handle network disconnection with AI fallback
 apiClient.interceptors.response.use(
-  (response) => response.data,
+  (response) => response,
   async (error) => {
     const url = error.config?.url || '';
     const reqData = error.config?.data

@@ -290,7 +290,10 @@ Configure `frontend/.env.local`:
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
-NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1
+NEXT_PUBLIC_API_URL=https://agritrace-backend-m0g1.onrender.com/api/v1
+
+# In Vercel, set this to the public URL of the Render backend, for example:
+# NEXT_PUBLIC_API_URL=https://agritrace-backend-m0g1.onrender.com/api/v1
 ```
 
 Start the Next.js development server:

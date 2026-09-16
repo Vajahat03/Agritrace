@@ -40,8 +40,8 @@ export const plotSchema = z.object({
 });
 
 export const cropSchema = z.object({
-  farmId: z.string().uuid(),
-  plotId: z.string().uuid(),
+  farmId: z.string().uuid().optional(),
+  plotId: z.string().uuid().optional(),
   cropType: z.string().min(2),
   variety: z.string().min(1),
   area: z.number().positive(),
