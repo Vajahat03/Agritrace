@@ -12,6 +12,7 @@ const envSchema = z.object({
   SUPABASE_SERVICE_ROLE_KEY: z.string().min(1),
   WEATHER_API_KEY: z.string().optional(),
   AI_SERVICE_URL: z.string().optional().default('http://localhost:8000'),
+  DEMO_MODE: z.enum(['true', 'false']).default('false').transform((value) => value === 'true'),
 });
 
 const parsed = envSchema.safeParse(process.env);
@@ -31,4 +32,5 @@ export const env = parsed.success
       SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY || 'placeholder-service-role-key',
       WEATHER_API_KEY: process.env.WEATHER_API_KEY,
       AI_SERVICE_URL: process.env.AI_SERVICE_URL || 'http://localhost:8000',
+      DEMO_MODE: process.env.DEMO_MODE === 'true',
     };

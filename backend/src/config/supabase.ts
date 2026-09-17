@@ -21,6 +21,9 @@ export const supabaseAnon: SupabaseClient = createClient(
 
 // 3. Authenticated User Client Builder (Transfers JWT into Supabase client to enforce RLS)
 export function getAuthenticatedClient(accessToken?: string): SupabaseClient {
+  if (accessToken === 'mock-dev-token' && env.DEMO_MODE) {
+    return supabaseAdmin;
+  }
   if (!accessToken) {
     return supabaseAnon;
   }

@@ -1,5 +1,6 @@
 import { Response, NextFunction } from 'express';
 import { supabaseAdmin, supabaseAnon } from '../config/supabase';
+import { env } from '../config/env';
 import { AuthRequest, UserRole } from '../types';
 
 export async function authMiddleware(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
@@ -26,8 +27,8 @@ export async function authMiddleware(req: AuthRequest, res: Response, next: Next
     const { data: authData, error: authError } = await supabaseAnon.auth.getUser(token);
 
     if (authError || !authData.user) {
-      // In development mode with placeholder credentials, fallback to test header if present
-      if (process.env.NODE_ENV === 'development' && req.headers['x-dev-user-id']) {
+      // Allow the seeded demo portal to work in its explicitly enabled deployment mode.
+      if ((env.DEMO_MODE || process.env.NODE_ENV === 'development') && req.headers['x-dev-user-id']) {
         req.user = {
           id: req.headers['x-dev-user-id'] as string,
           email: (req.headers['x-dev-user-email'] as string) || 'farmer@agritrace.dev',

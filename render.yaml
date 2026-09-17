@@ -9,6 +9,8 @@ services:
     envVars:
       - key: AI_SERVICE_URL
         value: https://agritrace-ai-yw5s.onrender.com
+      - key: DEMO_MODE
+        value: "true"
 
   - type: web
     name: agritrace-ai
