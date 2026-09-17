@@ -24,8 +24,8 @@ apiClient.interceptors.request.use(async (config) => {
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     } else {
-      // In development fallback, check local storage for demo mock user
-      if (typeof window !== 'undefined') {
+      // Only send demo headers when demo mode is explicitly enabled.
+      if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true' && typeof window !== 'undefined') {
         const storedUser = localStorage.getItem('agritrace_demo_user');
         if (storedUser) {
           const user = JSON.parse(storedUser);

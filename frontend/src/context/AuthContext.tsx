@@ -46,11 +46,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             setUser(profileFromAuthUser(sessionData.session.user));
           }
         } else {
-          // Check local storage for simulated demo user
-          const savedDemo = localStorage.getItem('agritrace_demo_user');
-          if (savedDemo) {
-            setUser(JSON.parse(savedDemo));
-          } else {
+          if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
+            const savedDemo = localStorage.getItem('agritrace_demo_user');
+            if (savedDemo) {
+              setUser(JSON.parse(savedDemo));
+            } else {
             // Default initial demo user: Farmer
             const defaultFarmer: UserProfile = {
               id: '00000000-0000-0000-0000-000000000001',
@@ -63,6 +63,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             };
             setUser(defaultFarmer);
             localStorage.setItem('agritrace_demo_user', JSON.stringify(defaultFarmer));
+            }
           }
         }
       } catch (err) {
