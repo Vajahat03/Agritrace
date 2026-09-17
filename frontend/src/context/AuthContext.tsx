@@ -42,6 +42,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   // Load user session on mount
   useEffect(() => {
+    const authReadyGuard = window.setTimeout(() => {
+      setLoading(false);
+    }, 10000);
+
     const initAuth = async () => {
       try {
         const { data: sessionData } = await getSessionWithTimeout();
@@ -96,6 +100,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
 
     return () => {
+      window.clearTimeout(authReadyGuard);
       listener.subscription.unsubscribe();
     };
   }, []);
