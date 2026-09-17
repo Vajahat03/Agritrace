@@ -31,11 +31,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     phone: authUser.user_metadata?.phone,
   });
 
+  const getSessionWithTimeout = async () => {
+    return Promise.race([
+      supabase.auth.getSession(),
+      new Promise<never>((_, reject) =>
+        setTimeout(() => reject(new Error('Supabase session check timed out')), 8000)
+      ),
+    ]);
+  };
+
   // Load user session on mount
   useEffect(() => {
     const initAuth = async () => {
       try {
-        const { data: sessionData } = await supabase.auth.getSession();
+        const { data: sessionData } = await getSessionWithTimeout();
         if (sessionData.session?.user) {
           // Fetch synced profile from backend
           try {
