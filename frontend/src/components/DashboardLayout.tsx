@@ -53,7 +53,7 @@ export function DashboardLayout({
     }
   }, [activePortal, loading, pathname, router, user]);
 
-  if (loading || !user || user.role?.toUpperCase() !== activePortal.toUpperCase()) {
+  if (loading) {
     return (
       <div className="min-h-screen bg-[#f8faf9] flex items-center justify-center">
         <div className="flex flex-col items-center gap-3">
@@ -62,6 +62,14 @@ export function DashboardLayout({
         </div>
       </div>
     );
+  }
+
+  if (!user) {
+    return null;
+  }
+
+  if (user.role?.toUpperCase() !== activePortal.toUpperCase()) {
+    return null;
   }
 
   return (
