@@ -33,6 +33,9 @@ export default function FarmerCropsPage() {
 
   const [farms, setFarms] = useState<{ id: string; name: string }[]>([]);
   const [selectedFarmId, setSelectedFarmId] = useState<string>('');
+  const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
+
+  const demoCropKey = 'agritrace_demo_crops';
 
   useEffect(() => {
     loadCrops();
@@ -56,6 +59,12 @@ export default function FarmerCropsPage() {
   const loadCrops = async () => {
     try {
       setLoading(true);
+      if (isDemoMode) {
+        const savedCrops = localStorage.getItem(demoCropKey);
+        const storedCrops: Crop[] = savedCrops ? JSON.parse(savedCrops) : [];
+        setCrops(statusFilter === 'ALL' ? storedCrops : storedCrops.filter((crop) => crop.status === statusFilter));
+        return;
+      }
       const url = statusFilter === 'ALL' ? '/farmer/crops' : `/farmer/crops?status=${statusFilter}`;
       const res: any = await apiClient.get(url);
       if (res?.data && Array.isArray(res.data)) {
@@ -151,6 +160,36 @@ export default function FarmerCropsPage() {
   const handleCreateCrop = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
+      if (isDemoMode) {
+        const now = new Date().toISOString();
+        const demoCrop: Crop = {
+          id: `demo-crop-${Date.now()}`,
+          farmer_id: '00000000-0000-0000-0000-000000000001',
+          farm_id: selectedFarmId || 'demo-farm-1',
+          plot_id: 'demo-plot-1',
+          crop_type: newCrop.cropType,
+          variety: newCrop.variety,
+          area: Number(newCrop.area),
+          area_unit: newCrop.areaUnit,
+          planting_date: newCrop.plantingDate,
+          expected_harvest_date: newCrop.expectedHarvestDate || undefined,
+          plantingDate: newCrop.plantingDate,
+          expectedHarvestDate: newCrop.expectedHarvestDate || undefined,
+          status: newCrop.status,
+          notes: newCrop.notes,
+          image_url: newCrop.imageUrl || undefined,
+          created_at: now,
+          updated_at: now,
+          farm: { name: 'Demo Farm', location_name: 'Nashik, Maharashtra' },
+          plot: { name: 'Main Plot', area: Number(newCrop.area) },
+        };
+        const savedCrops: Crop[] = JSON.parse(localStorage.getItem(demoCropKey) || '[]');
+        localStorage.setItem(demoCropKey, JSON.stringify([demoCrop, ...savedCrops]));
+        setIsAddModalOpen(false);
+        setFeedback({ type: 'success', message: 'New crop added to your demo farm!' });
+        await loadCrops();
+        return;
+      }
       await apiClient.post('/farmer/crops', {
         farmId: selectedFarmId || undefined,
         ...newCrop,
