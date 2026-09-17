@@ -65,10 +65,23 @@ export function DashboardLayout({
   }
 
   if (!user) {
-    return null;
+    return (
+      <div className="min-h-screen bg-[#f8faf9] flex items-center justify-center p-6">
+        <div className="max-w-md rounded-2xl bg-white border border-slate-200 p-6 text-center shadow-sm">
+          <h1 className="text-lg font-bold text-slate-900">Your session has expired</h1>
+          <p className="mt-2 text-sm text-slate-600">Please sign in again to open the farmer workspace.</p>
+          <button
+            onClick={() => router.replace('/login')}
+            className="mt-5 rounded-xl bg-emerald-600 px-5 py-2.5 text-sm font-bold text-white hover:bg-emerald-700"
+          >
+            Go to Sign In
+          </button>
+        </div>
+      </div>
+    );
   }
 
-  if (user.role?.toUpperCase() !== activePortal.toUpperCase()) {
+  if (user.role && user.role.toUpperCase() !== activePortal.toUpperCase()) {
     return null;
   }
 
