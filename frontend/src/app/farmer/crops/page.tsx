@@ -33,7 +33,9 @@ export default function FarmerCropsPage() {
 
   const [farms, setFarms] = useState<{ id: string; name: string }[]>([]);
   const [selectedFarmId, setSelectedFarmId] = useState<string>('');
-  const isDemoMode = process.env.NEXT_PUBLIC_DEMO_MODE === 'true';
+  const isDemoMode =
+    process.env.NEXT_PUBLIC_DEMO_MODE === 'true' ||
+    (typeof window !== 'undefined' && Boolean(localStorage.getItem('agritrace_demo_user')));
 
   const demoCropKey = 'agritrace_demo_crops';
 
