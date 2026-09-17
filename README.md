@@ -291,6 +291,7 @@ Configure `frontend/.env.local`:
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
 NEXT_PUBLIC_API_URL=https://agritrace-backend-m0g1.onrender.com/api/v1
+NEXT_PUBLIC_DEMO_MODE=false
 
 # In Vercel, set this to the public URL of the Render backend, for example:
 # NEXT_PUBLIC_API_URL=https://agritrace-backend-m0g1.onrender.com/api/v1

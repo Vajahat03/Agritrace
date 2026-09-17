@@ -18,6 +18,7 @@ const nextConfig = {
     NEXT_PUBLIC_SUPABASE_ANON_KEY:
       process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ||
       'sb_publishable_P_xf-4wIrhAr2rHkuD9eFQ_hyA5KPtU',
+    NEXT_PUBLIC_DEMO_MODE: process.env.NEXT_PUBLIC_DEMO_MODE || 'false',
   },
 };
 

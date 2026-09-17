@@ -81,7 +81,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       const { data, error } = await supabase.auth.signInWithPassword({ email, password });
       if (error) {
-        // Fallback for demo testing when Supabase credentials are placeholder
+        if (process.env.NEXT_PUBLIC_DEMO_MODE !== 'true') {
+          throw error;
+        }
         const demoUser: UserProfile = {
           id: `demo-${fallbackRole.toLowerCase()}-id`,
           email,
@@ -123,7 +125,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
 
       if (error) {
-        // Fallback demo user simulation
+        if (process.env.NEXT_PUBLIC_DEMO_MODE !== 'true') {
+          throw error;
+        }
         const demoUser: UserProfile = {
           id: `demo-${data.role.toLowerCase()}-${Date.now()}`,
           email: data.email,
@@ -135,7 +139,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         };
         setUser(demoUser);
         localStorage.setItem('agritrace_demo_user', JSON.stringify(demoUser));
-      } else if (authResult.user) {
+      } else if (authResult.user && authResult.session) {
         // Sync profile to public.users via backend
         await apiClient.post('/auth/sync-profile', {
           email: data.email,
@@ -146,6 +150,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         });
         const res: any = await apiClient.get('/auth/me');
         setUser(res.data);
+      } else if (authResult.user) {
+        throw new Error('Registration succeeded, but email confirmation is required before you can sign in.');
       }
     } finally {
       setLoading(false);
