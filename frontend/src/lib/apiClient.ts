@@ -18,6 +18,22 @@ export const apiClient = axios.create({
 
 // Interceptor to inject Supabase JWT access token
 apiClient.interceptors.request.use(async (config) => {
+  if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
+    const demoUser = typeof window !== 'undefined' ? localStorage.getItem('agritrace_demo_user') : null;
+    const user = demoUser ? JSON.parse(demoUser) : {
+      id: '00000000-0000-0000-0000-000000000001',
+      role: 'FARMER',
+      email: 'farmer@agritrace.dev',
+      full_name: 'Demo Farmer',
+    };
+    config.headers['x-dev-user-id'] = user.id;
+    config.headers['x-dev-user-role'] = user.role;
+    config.headers['x-dev-user-email'] = user.email;
+    config.headers['x-dev-user-name'] = user.full_name;
+    config.headers.Authorization = 'Bearer mock-dev-token';
+    return config;
+  }
+
   try {
     const { data } = await supabase.auth.getSession();
     const token = data.session?.access_token;

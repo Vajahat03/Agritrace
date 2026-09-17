@@ -48,6 +48,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
     const initAuth = async () => {
       try {
+        if (process.env.NEXT_PUBLIC_DEMO_MODE === 'true') {
+          const demoUser: UserProfile = {
+            id: '00000000-0000-0000-0000-000000000001',
+            email: 'farmer@agritrace.dev',
+            full_name: 'Demo Farmer',
+            role: 'FARMER',
+            language_preference: 'en',
+          };
+          setUser(demoUser);
+          localStorage.setItem('agritrace_demo_user', JSON.stringify(demoUser));
+          return;
+        }
+
         const { data: sessionData } = await getSessionWithTimeout();
         if (sessionData.session?.user) {
           // Fetch synced profile from backend
