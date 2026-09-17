@@ -22,6 +22,15 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState<boolean>(true);
   const router = useRouter();
 
+  const profileFromAuthUser = (authUser: { id: string; email?: string; user_metadata?: Record<string, any> }): UserProfile => ({
+    id: authUser.id,
+    email: authUser.email || '',
+    full_name: authUser.user_metadata?.full_name || authUser.email?.split('@')[0] || 'Farmer',
+    role: (authUser.user_metadata?.role as UserRole) || 'FARMER',
+    language_preference: authUser.user_metadata?.language_preference || 'en',
+    phone: authUser.user_metadata?.phone,
+  });
+
   // Load user session on mount
   useEffect(() => {
     const initAuth = async () => {
@@ -29,8 +38,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         const { data: sessionData } = await supabase.auth.getSession();
         if (sessionData.session?.user) {
           // Fetch synced profile from backend
-          const res: any = await apiClient.get('/auth/me');
-          setUser(res.data);
+          try {
+            const res: any = await apiClient.get('/auth/me', { timeout: 10000 });
+            setUser(res.data);
+          } catch (profileError) {
+            console.warn('Profile service unavailable; using verified Supabase profile:', profileError);
+            setUser(profileFromAuthUser(sessionData.session.user));
+          }
         } else {
           // Check local storage for simulated demo user
           const savedDemo = localStorage.getItem('agritrace_demo_user');
@@ -63,10 +77,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const { data: listener } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
         try {
-          const res: any = await apiClient.get('/auth/me');
+          const res: any = await apiClient.get('/auth/me', { timeout: 10000 });
           setUser(res.data);
         } catch {
-          // Fallback
+          setUser(profileFromAuthUser(session.user));
         }
       }
     });
